@@ -18,7 +18,9 @@ public enum ErrorCode {
      * 9000-9999 保留特殊情况使用
      */
     ARGUMENT_VALID_ERROR(1000, "参数校验异常"),
-    ARGUMENT_NOT_EXIST(1001, "无法获取请求参数");
+    ARGUMENT_NOT_EXIST(1001, "无法获取请求参数"),
+
+    USER_NOT_EXIST(3000,"用户信息不存在");
 
 
 
