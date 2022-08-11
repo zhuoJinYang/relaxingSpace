@@ -61,8 +61,8 @@ public class MybatisPlusCodeGenerator {
                         .addTableFills(new Property("deletedFlag", FieldFill.INSERT))
                         .addTableFills(new Column("add_time",FieldFill.INSERT))
                         .addTableFills(new Column("add_member",FieldFill.INSERT))
-                        .addTableFills(new Column("edit_time",FieldFill.INSERT))
-                        .addTableFills(new Column("edit_member",FieldFill.INSERT))
+                        .addTableFills(new Column("edit_time",FieldFill.INSERT_UPDATE))
+                        .addTableFills(new Column("edit_member",FieldFill.INSERT_UPDATE))
                         .fileOverride()
                         // Mapper配置构建者
                         .mapperBuilder()
