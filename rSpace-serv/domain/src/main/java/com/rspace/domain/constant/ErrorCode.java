@@ -19,6 +19,10 @@ public enum ErrorCode {
      */
     ARGUMENT_VALID_ERROR(1000, "参数校验异常"),
     ARGUMENT_NOT_EXIST(1001, "无法获取请求参数"),
+    NO_MATCH_ENUM_ITEM(1002,"没有匹配的枚举数据"),
+
+    INVALID_TOKEN(2000,"无效的登录凭证"),
+    NO_PERMISSION(2100,"没有访问或操作权限"),
 
     USER_NOT_EXIST(3000,"用户信息不存在");
 

@@ -1,5 +1,6 @@
 package com.rspace.domain.constant;
 
+import com.rspace.domain.exception.ServiceException;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -13,4 +14,13 @@ public enum RoleType {
 
     private final String value;
     private final String name;
+
+    public static RoleType of(String value){
+        for (RoleType item : values()) {
+            if (item.getValue().equals(value)){
+                return item;
+            }
+        }
+        throw new ServiceException(ErrorCode.NO_MATCH_ENUM_ITEM);
+    }
 }

@@ -28,7 +28,8 @@ public class MybatisPlusCodeGenerator {
 
     private static final List<String> TABLE_NAME_LIST = Arrays.asList(
             "rs_article",
-            "sys_user"
+            "sys_user",
+            "sys_session"
     );
 
     private static final DataSourceConfig.Builder DATA_SOURCE_CONFIG = new DataSourceConfig.Builder(URL,USER_NAME,PASSWORD);
