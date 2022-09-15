@@ -1,7 +1,7 @@
 server:
   port: 11001
   servlet:
-    context-path: /rSpace-admin
+    context-path: /space-admin
 spring:
   application:
     name: admin

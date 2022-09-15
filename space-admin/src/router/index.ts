@@ -1,24 +1,18 @@
-import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
-import Home from '../views/Home.vue'
+import {createRouter, createWebHistory} from 'vue-router'
+import {basicRoutes} from "./route-basic";
+import {moduleRoutes} from "./route-module";
 
-const routes: Array<RouteRecordRaw> = [
-  {
-    path: '/',
-    name: 'Home',
-    component: Home
-  },
-  {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+// 配置路由元信息
+declare module 'vue-router'{
+  interface RouteMeta {
+    title?: string
   }
-]
+}
 
-const router = createRouter({
-  history: createWebHistory(process.env.BASE_URL),
+const routes = [...basicRoutes,...moduleRoutes]
+
+const router =  createRouter({
+  history:createWebHistory(),
   routes
 })
 
