@@ -4,6 +4,10 @@ import {RouteRecordRaw} from "vue-router";
 export const basicRoutes :  Array<RouteRecordRaw> = [
     {
         path:"/",
-        component: import('../views/system/login.vue')
+        component: () => import('@/views/system/login.vue')
+    },
+    {
+        path:"/module",
+        component: () => import('@/views/system/module.vue')
     }
 ]

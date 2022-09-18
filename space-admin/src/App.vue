@@ -4,19 +4,10 @@
   </a-config-provider>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import zhCN from 'ant-design-vue/es/locale/zh_CN';
 import 'moment/dist/locale/zh-cn'
-import {defineComponent} from "vue";
-
-export default defineComponent({
-  setup(){
-    const locale = zhCN
-    return{
-      locale
-    }
-  }
-})
+const locale = zhCN
 </script>
 
 
