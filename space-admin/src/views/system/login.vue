@@ -13,7 +13,7 @@
           >
             <a-form-item
                 name="username"
-                :rules="[{ required: true, message: 'Please input your username!' }]"
+                :rules="[{ required: true, message: '请输入账号' }]"
             >
               <a-input v-model:value="formState.username"
                        placeholder="请输入账号">
@@ -25,7 +25,7 @@
 
             <a-form-item
                 name="password"
-                :rules="[{ required: true, message: 'Please input your password!' }]"
+                :rules="[{ required: true, message: '请输入密码' }]"
             >
               <a-input-password v-model:value="formState.password"
                                 placeholder="请输入密码">

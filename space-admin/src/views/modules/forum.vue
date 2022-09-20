@@ -4,9 +4,23 @@
       <div class="header-left">
         <div>icon</div>
         <a-menu mode="horizontal" v-model:selected-keys="currentMenuIndex">
-          <a-menu-item key="mainPage">主页</a-menu-item>
-          <a-menu-item key="myBlog">我的博客</a-menu-item>
-          <a-menu-item key="writeMessage">留言</a-menu-item>
+          <template v-for="menu in menus">
+            <template v-if="menu?.children?.length > 0">
+              <a-sub-menu :key="menu.id">
+                <template #title>{{ menu.name }}</template>
+                <a-menu-item v-for="submenu in menu.children" :key="submenu.id">
+                  <router-link v-if="submenu.path" :to="submenu.path">{{ submenu.name }}</router-link>
+                  <span v-else>{{ submenu.name }}</span>
+                </a-menu-item>
+              </a-sub-menu>
+            </template>
+            <template v-else>
+              <a-menu-item :key="menu.id">
+                <router-link v-if="menu.path" :to="menu.path">{{ menu.name }}</router-link>
+                <span v-else>{{ menu.name }}</span>
+              </a-menu-item>
+            </template>
+          </template>
         </a-menu>
       </div>
       <div class="header-search">
@@ -33,20 +47,43 @@
 </template>
 
 <script lang="ts">
-import {defineComponent, ref} from 'vue'
+import {defineComponent, reactive, ref} from 'vue'
 import { SearchOutlined } from '@ant-design/icons-vue'
+import {MenuRecord} from "@/types/public";
+
+const menuList: MenuRecord[] = [
+  {
+    id: '1',
+    name: '主页',
+    path: '/forum/mainPage'
+  },
+  {
+    id: '2',
+    name: '我的博客',
+    path: '/forum/myBlog'
+  },
+  {
+    id: '3',
+    name: '留言',
+    path: '/forum/writeMessage'
+  }
+]
 
 export default defineComponent({
   components:{
     SearchOutlined
   },
   setup() {
-    const currentMenuIndex = ref<string[]>(['mainPage']);
+    const currentMenuIndex = ref<string[]>([]);
+    const value = ref<string>('');
+    const menus = reactive(menuList)
     const hahah = () => {
       console.log('hahah')
     }
     return {
       currentMenuIndex,
+      menus,
+      value,
       hahah
     }
   }
