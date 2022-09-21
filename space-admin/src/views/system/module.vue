@@ -6,12 +6,12 @@
       </div>
     </a-layout-header>
     <a-layout-content class="content">
-      <div style="width: 25%;height: 150px;">
+      <div style="width: 25%;height: 150px;" @click="gotoBlog">
         <div class="module-item">
           博客
         </div>
       </div>
-      <div style="width: 25%;height: 150px;">
+      <div style="width: 25%;height: 150px;" @click="gotoPokemon">
         <div class="module-item">
           宝可梦图鉴
         </div>
@@ -22,7 +22,32 @@
   </a-layout>
 </template>
 
-<style>
+<script lang="ts">
+import {defineComponent} from 'vue'
+import ModuleItem from "@/components/ModuleItem.vue";
+import {useRouter} from "vue-router";
+
+export default defineComponent({
+  components:{
+    ModuleItem
+  },
+  setup() {
+    const router = useRouter()
+    const gotoBlog = () => {
+      router.push('/forum')
+    }
+    const gotoPokemon = () => {
+      router.push('/pokemon')
+    }
+    return {
+      gotoBlog,
+      gotoPokemon
+    }
+  }
+})
+</script>
+
+<style scoped lang="scss">
 .header{
   background-color: #fff;
   padding: 0 24px;
@@ -42,19 +67,3 @@
   padding-top: 30px;
 }
 </style>
-
-<script lang="ts">
-import {defineComponent} from 'vue'
-import ModuleItem from "@/components/ModuleItem.vue";
-
-export default defineComponent({
-  components:{
-    ModuleItem
-  },
-  setup() {
-    return {}
-  }
-})
-</script>
-
-<style scoped lang="scss"></style>
