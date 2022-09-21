@@ -27,7 +27,9 @@ public class MybatisPlusCodeGenerator {
     private static final String XML_PATH = System.getProperty("user.dir") + "/db/src/main/resources/mapper";
 
     private static final List<String> TABLE_NAME_LIST = Arrays.asList(
-            "sys_session"
+            "sys_session",
+            "sys_user",
+            "rs_blog_article"
     );
 
     private static final DataSourceConfig.Builder DATA_SOURCE_CONFIG = new DataSourceConfig.Builder(URL,USER_NAME,PASSWORD);
@@ -39,7 +41,7 @@ public class MybatisPlusCodeGenerator {
                         .disableOpenDir()
                 )
                 .packageConfig(builder -> builder
-                        .parent("com.rspace")
+                        .parent("com.space")
                         .moduleName("db")
                         .entity("entity")
                         .mapper("mapper")

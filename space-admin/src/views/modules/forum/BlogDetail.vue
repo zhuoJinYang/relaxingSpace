@@ -1,5 +1,9 @@
 <template>
-  <div>我的博客</div>
+  <div>
+    <div>title</div>
+    <div>extra-info</div>
+    <div>content</div>
+  </div>
 </template>
 
 <script lang="ts">

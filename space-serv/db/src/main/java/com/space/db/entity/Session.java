@@ -14,7 +14,7 @@ import lombok.Setter;
  * </p>
  *
  * @author zjy
- * @since 2022-09-05
+ * @since 2022-09-21
  */
 @Getter
 @Setter
@@ -23,21 +23,45 @@ public class Session implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    /**
+     * 访问id
+     */
     @TableId(value = "id", type = IdType.ASSIGN_ID)
     private Long id;
 
+    /**
+     * 访问用户id
+     */
     private Long loginUserId;
 
+    /**
+     * 访问用户名称
+     */
     private String loginUserName;
 
+    /**
+     * 访问用户角色
+     */
     private String loginUserRoleType;
 
+    /**
+     * 访问时间
+     */
     private LocalDateTime loginTime;
 
+    /**
+     * token
+     */
     private String token;
 
+    /**
+     * 访问ip
+     */
     private String ip;
 
+    /**
+     * 访问代理
+     */
     private String agent;
 
 

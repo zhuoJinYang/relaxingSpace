@@ -4,14 +4,14 @@ import {RouteRecordRaw} from "vue-router";
 export const forumModuleRoutes :  Array<RouteRecordRaw> = [
     {
         path:"/forum/mainPage",
-        component: () => import('@/components/forum/MainPage.vue')
+        component: () => import('@/views/modules/forum/MainPage.vue')
     },
     {
         path:"/forum/myBlog",
-        component: () => import('@/components/forum/MyBlog.vue')
+        component: () => import('@/views/modules/forum/MyBlog.vue')
     },
     {
         path:"/forum/writeMessage",
-        component: () => import('@/components/forum/WriteMessage.vue')
+        component: () => import('@/views/modules/forum/WriteMessage.vue')
     }
 ]
