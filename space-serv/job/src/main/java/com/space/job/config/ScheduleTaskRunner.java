@@ -1,6 +1,6 @@
 package com.space.job.config;
 
-import com.nbport.answer.job.service.ScheduleTaskService;
+import com.space.job.service.ScheduleTaskService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;

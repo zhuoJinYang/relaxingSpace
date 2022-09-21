@@ -1,10 +1,10 @@
 package com.space.job.service.impl;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.nbport.answer.db.entity.Schedule;
-import com.nbport.answer.db.mapper.ScheduledMapper;
-import com.nbport.answer.job.service.ScheduleTaskService;
-import com.nbport.answer.job.service.ScheduledTaskJob;
+import com.space.db.entity.Schedule;
+import com.space.db.mapper.ScheduleMapper;
+import com.space.job.service.ScheduleTaskService;
+import com.space.job.service.ScheduledTaskJob;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.TriggerContext;
@@ -50,7 +50,7 @@ public class ScheduleTaskServiceImpl implements ScheduleTaskService {
     private Map<Long, ScheduledFuture> scheduledFutureMap = new ConcurrentHashMap<>();
 
     @Resource
-    private ScheduledMapper scheduledMapper;
+    private ScheduleMapper scheduledMapper;
 
     /**
      * 描述: 根据任务id 启动任务
@@ -74,10 +74,12 @@ public class ScheduleTaskServiceImpl implements ScheduleTaskService {
                 return false;
             }
             //查询配置
-            if(scheduled == null)
+            if(scheduled == null){
                 scheduled = this.getByTaskKey(taskId);
-            if(scheduled == null)
+            }
+            if(scheduled == null){
                 return false;
+            }
             //启动任务
             this.doStartTask(scheduled);
         } finally {
@@ -146,10 +148,12 @@ public class ScheduleTaskServiceImpl implements ScheduleTaskService {
         //先停止
         this.stop(taskId);
         //查询配置
-        if(scheduled == null)
+        if(scheduled == null){
             scheduled = this.getByTaskKey(taskId);
-        if(scheduled == null)
+        }
+        if(scheduled == null){
             return false;
+        }
         //再启动
         return this.start(taskId,scheduled);
     }
@@ -202,8 +206,8 @@ public class ScheduleTaskServiceImpl implements ScheduleTaskService {
         String taskCron = scheduled.getCron();
         //新增需要定时调度的接口
         ScheduledTaskJob scheduledTaskJob = new ScheduledTaskJobImpl();
-        log.info(">>>>>> 任务 [ {} ] ,cron={}", scheduled.getName(), taskCron);
-        ScheduledFuture scheduledFuture = threadPoolTaskScheduler.schedule(scheduledTaskJob.setPaperId(scheduled.getPaperId()), (TriggerContext triggerContext) -> new CronTrigger(taskCron).nextExecutionTime(triggerContext));
+        log.info(">>>>>> 任务 [ {} ] ,cron={}", scheduled.getId(), taskCron);
+        ScheduledFuture scheduledFuture = threadPoolTaskScheduler.schedule(scheduledTaskJob, (TriggerContext triggerContext) -> new CronTrigger(taskCron).nextExecutionTime(triggerContext));
         //将启动的任务放入 map
         scheduledFutureMap.put(taskId, scheduledFuture);
         scheduledCronMap.put(taskId,taskCron);

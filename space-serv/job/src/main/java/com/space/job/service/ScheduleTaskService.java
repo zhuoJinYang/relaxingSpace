@@ -1,6 +1,7 @@
 package com.space.job.service;
 
-import com.nbport.answer.db.entity.Schedule;
+
+import com.space.db.entity.Schedule;
 
 import java.util.Map;
 

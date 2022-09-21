@@ -1,9 +1,9 @@
 package com.space.job.config;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.nbport.answer.db.entity.Schedule;
-import com.nbport.answer.db.mapper.ScheduledMapper;
-import com.nbport.answer.job.service.ScheduleTaskService;
+import com.space.db.entity.Schedule;
+import com.space.db.mapper.ScheduleMapper;
+import com.space.job.service.ScheduleTaskService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -16,7 +16,7 @@ import java.util.Map;
 @Slf4j
 public class ScheduleListener {
     @Resource
-    private ScheduledMapper scheduledMapper;
+    private ScheduleMapper scheduledMapper;
     @Resource
     private ScheduleTaskService scheduleTaskService;
 
