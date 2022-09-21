@@ -1,5 +1,5 @@
 <template>
-  <div style="width: 100%;height: 100%;background-color: deepskyblue;">这是一个模块</div>
+  <div>队伍管理</div>
 </template>
 
 <script lang="ts">

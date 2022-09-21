@@ -1,5 +1,6 @@
 <template>
   <a-layout>
+    <!-- 头部 -->
     <a-layout-header class="header">
       <div class="header-left">
         <div>icon</div>
@@ -34,6 +35,7 @@
         <div>你的狗头</div>
       </div>
     </a-layout-header>
+    <!-- 内容 -->
     <a-layout-content>
       <div style="display: flex">
         <router-view v-slot="{ Component }">

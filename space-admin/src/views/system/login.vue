@@ -40,7 +40,7 @@
             </a-form-item>
 
             <a-form-item>
-              <a-button type="primary" html-type="submit">登录</a-button>
+              <a-button type="primary" html-type="submit" @click="handleUserLogin">登录</a-button>
             </a-form-item>
           </a-form>
         </div>
@@ -53,6 +53,7 @@
 <script lang="ts">
 import { defineComponent, reactive } from 'vue';
 import { UserOutlined, LockOutlined } from '@ant-design/icons-vue';
+import {useRouter} from "vue-router";
 interface FormState {
   username: string;
   password: string;
@@ -64,6 +65,7 @@ export default defineComponent({
     LockOutlined,
   },
   setup() {
+    const router = useRouter()
     const formState = reactive<FormState>({
       username: '',
       password: '',
@@ -94,11 +96,16 @@ export default defineComponent({
     const onFinishFailed = (errorInfo: any) => {
       console.log('Failed:', errorInfo);
     };
+
+    const handleUserLogin = () => {
+      router.push('/module')
+    }
     return {
       formState,
       loginRules,
       onFinish,
       onFinishFailed,
+      handleUserLogin
     };
   }
 })
