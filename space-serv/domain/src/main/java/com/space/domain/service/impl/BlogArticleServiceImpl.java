@@ -1,5 +1,6 @@
 package com.space.domain.service.impl;
 
+import cn.hutool.core.util.ObjectUtil;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.space.db.entity.BlogArticle;
 import com.space.db.mapper.BlogArticleMapper;
@@ -17,5 +18,19 @@ public class BlogArticleServiceImpl implements BlogArticleService {
     @Override
     public List<BlogArticle> list() {
         return articleMapper.selectList(Wrappers.emptyWrapper());
+    }
+
+    @Override
+    public void save(BlogArticle blogArticle) {
+        if (ObjectUtil.isEmpty(blogArticle.getId())){
+            articleMapper.insert(blogArticle);
+        }else {
+            articleMapper.updateById(blogArticle);
+        }
+    }
+
+    @Override
+    public void del(Long id) {
+        articleMapper.deleteById(id);
     }
 }
