@@ -16,10 +16,10 @@
         </div>
         <template #overlay>
           <a-menu>
-            <a-menu-item key="1">
+            <a-menu-item key="1" @click="returnModule">
               返回模块页面
             </a-menu-item>
-            <a-menu-item key="2">
+            <a-menu-item key="2" @click="handleLogout">
               退出登录
             </a-menu-item>
           </a-menu>
@@ -32,6 +32,7 @@
 <script lang="ts">
 import {defineComponent} from 'vue'
 import {MenuFoldOutlined, MenuUnfoldOutlined, UserOutlined} from "@ant-design/icons-vue";
+import router from "@/router";
 
 export default defineComponent({
   name:'PokemonHeader',
@@ -42,7 +43,16 @@ export default defineComponent({
   },
   props:['collapsed'],
   setup() {
-    return {}
+    const handleLogout = () => {
+      router.push('/')
+    }
+    const returnModule = () => {
+      router.push('/module')
+    }
+    return {
+      handleLogout,
+      returnModule
+    }
   }
 })
 </script>

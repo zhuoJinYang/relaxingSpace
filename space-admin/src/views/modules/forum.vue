@@ -18,23 +18,16 @@
 </template>
 
 <script lang="ts">
-import {defineComponent, ref} from 'vue'
-import { SearchOutlined } from '@ant-design/icons-vue'
+import {defineComponent} from 'vue'
 import ForumHeader from './forum/layout/header.vue'
 
 export default defineComponent({
   components:{
     ForumHeader,
-    SearchOutlined
   },
   setup() {
-    const value = ref<string>('');
-    const hahah = () => {
-      console.log('hahah')
-    }
+
     return {
-      value,
-      hahah
     }
   }
 })

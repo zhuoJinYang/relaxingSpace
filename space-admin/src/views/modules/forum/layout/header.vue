@@ -30,7 +30,26 @@
       </a-input>
     </div>
     <div class="header-profile">
-      <div>你的狗头</div>
+      <a-dropdown :trigger="['click', 'hover']">
+        <div class="profile-avatar">
+          <a-avatar>
+            <template #icon>
+              <UserOutlined />
+            </template>
+          </a-avatar>
+          <div class="profile-avatar-name">{{'你的狗头'}}</div>
+        </div>
+        <template #overlay>
+          <a-menu>
+            <a-menu-item key="1" @click="returnModule">
+              返回模块页面
+            </a-menu-item>
+            <a-menu-item key="2" @click="handleLogout">
+              退出登录
+            </a-menu-item>
+          </a-menu>
+        </template>
+      </a-dropdown>
     </div>
   </div>
 </template>
@@ -38,6 +57,8 @@
 <script lang="ts">
 import {defineComponent, reactive, ref} from 'vue'
 import {MenuRecord} from "@/types/public";
+import {SearchOutlined, UserOutlined} from "@ant-design/icons-vue";
+import router from "@/router";
 
 const menuList: MenuRecord[] = [
   {
@@ -59,12 +80,28 @@ const menuList: MenuRecord[] = [
 
 export default defineComponent({
   name:'ForumHeader',
+  components:{
+    SearchOutlined,
+    UserOutlined
+  },
   setup() {
     const currentMenuIndex = ref<string[]>([]);
+    const value = ref<string>('');
     const menus = reactive(menuList)
+
+    const handleLogout = () => {
+      router.push('/')
+    }
+    const returnModule = () => {
+      router.push('/module')
+    }
     return {
       currentMenuIndex,
       menus,
+      value,
+
+      handleLogout,
+      returnModule
     }
   }
 })
@@ -92,6 +129,20 @@ export default defineComponent({
     display: flex;
     padding: 0 20px;
     margin-left: auto;
+    align-items: center;
+    flex-shrink: 0;
+    flex-grow: 0;
+    & .profile-avatar{
+      display: flex;
+      align-items: center;
+      padding: 0 12px;
+      cursor: pointer;
+      & .profile-avatar-name{
+        margin-left: 6px;
+        font-size: 14px;
+        vertical-align: middle;
+      }
+    }
   }
 }
 </style>

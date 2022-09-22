@@ -4,6 +4,10 @@
       <a-col :xs="6" :sm="6" :md="6" :lg="6" :xl="6"></a-col>
       <a-col :xs="12" :sm="12" :md="12" :lg="12" :xl="12">
         <div class="login-container-form">
+          <div style="display: flex">
+            <a-button @click="changeLoginType">登录</a-button>
+            <a-button @click="changeRegisterType">注册</a-button>
+          </div>
           <div class="login-container-title">欢迎来到爷的兴趣空间</div>
           <a-form
               :model="formState"
@@ -35,12 +39,9 @@
               </a-input-password>
             </a-form-item>
 
-            <a-form-item name="remember">
-              <a-checkbox v-model:checked="formState.remember">Remember me</a-checkbox>
-            </a-form-item>
-
             <a-form-item>
-              <a-button type="primary" html-type="submit" @click="handleUserLogin">登录</a-button>
+              <a-button v-if="loginType" type="primary" html-type="submit" @click="handleUserLogin">登录</a-button>
+              <a-button v-else type="primary" @click="registerUser">注册</a-button>
             </a-form-item>
           </a-form>
         </div>
@@ -51,13 +52,12 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, reactive } from 'vue';
+import {defineComponent, reactive, ref} from 'vue';
 import { UserOutlined, LockOutlined } from '@ant-design/icons-vue';
-import {useRouter} from "vue-router";
+import router from "@/router";
 interface FormState {
   username: string;
   password: string;
-  remember: boolean;
 }
 export default defineComponent({
   components:{
@@ -65,11 +65,10 @@ export default defineComponent({
     LockOutlined,
   },
   setup() {
-    const router = useRouter()
+    let loginType = ref<boolean>(true)
     const formState = reactive<FormState>({
       username: '',
       password: '',
-      remember: true,
     });
 
     const loginRules = reactive({
@@ -100,12 +99,27 @@ export default defineComponent({
     const handleUserLogin = () => {
       router.push('/module')
     }
+
+    const registerUser = () => {
+      console.log('注册')
+    }
+
+    const changeLoginType = () => {
+      loginType.value = true
+    }
+    const changeRegisterType = () => {
+      loginType.value = false
+    }
     return {
+      loginType,
       formState,
       loginRules,
       onFinish,
       onFinishFailed,
-      handleUserLogin
+      handleUserLogin,
+      registerUser,
+      changeLoginType,
+      changeRegisterType
     };
   }
 })
