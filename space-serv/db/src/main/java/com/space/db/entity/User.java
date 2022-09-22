@@ -17,7 +17,7 @@ import lombok.Setter;
  * </p>
  *
  * @author zjy
- * @since 2022-09-21
+ * @since 2022-09-22
  */
 @Getter
 @Setter
@@ -27,33 +27,33 @@ public class User implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
-     * 用户id
+     * id
      */
     @TableId(value = "id", type = IdType.ASSIGN_ID)
     private Long id;
 
     /**
-     * 用户昵称
+     * 用户账号
      */
-    private String name;
+    private String username;
 
     /**
-     * 用户性别
+     * 密码
      */
-    private String sex;
+    private String password;
 
     /**
-     * 用户粉丝量
+     * 手机号
      */
-    private Long fans;
+    private String phone;
 
     /**
-     * 用户简介
+     * 邮箱
      */
-    private String introduce;
+    private String email;
 
     /**
-     * 逻辑删除标志
+     * 删除标识
      */
     @TableField(fill = FieldFill.INSERT)
     @TableLogic

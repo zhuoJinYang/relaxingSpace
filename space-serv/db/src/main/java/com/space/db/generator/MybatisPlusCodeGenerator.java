@@ -27,10 +27,11 @@ public class MybatisPlusCodeGenerator {
     private static final String XML_PATH = System.getProperty("user.dir") + "/db/src/main/resources/mapper";
 
     private static final List<String> TABLE_NAME_LIST = Arrays.asList(
-            "sys_session",
-            "sys_user",
             "rs_blog_article",
-            "sys_schedule"
+            "rs_blog_info",
+            "sys_schedule",
+            "sys_session",
+            "sys_user"
     );
 
     private static final DataSourceConfig.Builder DATA_SOURCE_CONFIG = new DataSourceConfig.Builder(URL,USER_NAME,PASSWORD);

@@ -21,64 +21,44 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-@TableName("rs_blog_article")
-public class BlogArticle implements Serializable {
+@TableName("rs_blog_info")
+public class BlogInfo implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     /**
-     * 博客id
+     * 博客信息id
      */
     @TableId(value = "id", type = IdType.ASSIGN_ID)
     private Long id;
 
     /**
-     * 博客发表者
+     * 用户id
      */
     private Long userId;
 
     /**
-     * 博客标题
+     * 用户昵称
      */
-    private String title;
+    private String name;
 
     /**
-     * 博客标签
+     * 用户性别
      */
-    private String label;
+    private String sex;
 
     /**
-     * 博客概述
+     * 用户粉丝量
      */
-    private String summary;
+    private Long fans;
 
     /**
-     * 博客内容
+     * 用户简介
      */
-    private String content;
+    private String introduce;
 
     /**
-     * 浏览量
-     */
-    private Long previews;
-
-    /**
-     * 收藏量
-     */
-    private Long collections;
-
-    /**
-     * 点赞量
-     */
-    private Long likes;
-
-    /**
-     * 踩量
-     */
-    private Long dislikes;
-
-    /**
-     * 逻辑删除标识
+     * 逻辑删除标志
      */
     @TableField(fill = FieldFill.INSERT)
     @TableLogic
@@ -91,7 +71,7 @@ public class BlogArticle implements Serializable {
     private LocalDateTime addTime;
 
     /**
-     * 数据添加者
+     * 数据添加人
      */
     @TableField(fill = FieldFill.INSERT)
     private String addMember;
@@ -103,7 +83,7 @@ public class BlogArticle implements Serializable {
     private LocalDateTime editTime;
 
     /**
-     * 数据修改者
+     * 数据修改人
      */
     @TableField(fill = FieldFill.INSERT_UPDATE)
     private String editMember;
