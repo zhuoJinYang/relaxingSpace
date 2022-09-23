@@ -55,6 +55,7 @@
 import {defineComponent, reactive, ref} from 'vue';
 import { UserOutlined, LockOutlined } from '@ant-design/icons-vue';
 import router from "@/router";
+import {apiGetUserList} from "@/api/user";
 interface FormState {
   username: string;
   password: string;
@@ -101,6 +102,9 @@ export default defineComponent({
     }
 
     const registerUser = () => {
+      apiGetUserList().then(res => {
+        console.log(res)
+      })
       console.log('注册')
     }
 

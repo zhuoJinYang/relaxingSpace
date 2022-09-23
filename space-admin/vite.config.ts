@@ -14,12 +14,12 @@ export default defineConfig({
   },
   server:{
     host: '0.0.0.0',
-    port: 12000,
+    port: 12001,
     proxy:{
       '/space-admin': {
         target: 'http://localhost:11001',
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/space-admin/, ''),
+        // rewrite: (path) => path.replace(/^\/space-admin/, ''),
       }
     }
   }
