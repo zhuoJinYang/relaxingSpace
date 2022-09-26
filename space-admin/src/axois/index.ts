@@ -1,4 +1,6 @@
 import axios, {AxiosError, AxiosRequestConfig, AxiosResponse} from 'axios';
+import router from "@/router";
+import {message} from "ant-design-vue";
 
 const axiosInstance = axios.create({
     timeout: 60000,
@@ -14,15 +16,32 @@ const errorHandler = (error:AxiosError): AxiosError | Promise<AxiosError> => {
 /**
  * 请求发生前拦截
  */
-axiosInstance.interceptors.request.use((config:AxiosRequestConfig) => {
+axiosInstance.interceptors.request.use((config:AxiosRequestConfig): AxiosRequestConfig => {
     return config
 },errorHandler)
 
 /**
- * 请求发生后拦截
+ * 服务器响应后拦截
  */
-axios.interceptors.response.use((response:AxiosResponse) => {
+axiosInstance.interceptors.response.use((response:AxiosResponse): AxiosResponse | Promise<AxiosResponse> => {
     window.console.log('发起了请求:',response);
+    if (response.status !== 200){
+        return Promise.reject(response)
+    }
+    const { code : resultCode } = response.data
+    if ( resultCode !== 0 ){
+        switch (resultCode){
+            case 2000:{
+                // 登录失效
+                router.push('/login')
+                return Promise.reject(response)
+            }
+            default:{
+                message.error(response.data.message)
+                return Promise.reject(response)
+            }
+        }
+    }
     return response.data
 },errorHandler)
 

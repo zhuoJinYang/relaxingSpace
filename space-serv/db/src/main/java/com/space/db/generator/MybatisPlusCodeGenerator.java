@@ -59,6 +59,7 @@ public class MybatisPlusCodeGenerator {
                         // 实体配置构建者
                         .entityBuilder()
                         .enableLombok()
+                        .enableChainModel()
                         .idType(IdType.ASSIGN_ID)
                         .logicDeletePropertyName("deletedFlag")
                         .addTableFills(new Property("deletedFlag", FieldFill.INSERT))

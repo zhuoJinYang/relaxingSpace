@@ -8,7 +8,12 @@
             <a-button @click="changeLoginType">登录</a-button>
             <a-button @click="changeRegisterType">注册</a-button>
           </div>
-          <div class="login-container-title">欢迎来到爷的兴趣空间</div>
+          <div class="login-container-title">欢迎来到爷的兴趣空间-{{loginType?'登录':'注册'}}页面</div>
+          <div class="container-avatar" v-if="loginType">
+            <a-avatar :size="80" src="src/assets/login/avator.jpg">
+            </a-avatar>
+            <div class="container-avatar-name">爷就是天</div>
+          </div>
           <a-form
               :model="formState"
               :rules="loginRules"
@@ -55,11 +60,11 @@
 import {defineComponent, reactive, ref} from 'vue';
 import { UserOutlined, LockOutlined } from '@ant-design/icons-vue';
 import router from "@/router";
-import {apiGetUserList} from "@/api/user";
-interface FormState {
-  username: string;
-  password: string;
-}
+import {apiSaveUserInfo} from "@/api/user";
+import {message} from "ant-design-vue";
+import {LoginAccount} from "@/types/user";
+import {apiLogin} from "@/api/auth";
+
 export default defineComponent({
   components:{
     UserOutlined,
@@ -67,7 +72,7 @@ export default defineComponent({
   },
   setup() {
     let loginType = ref<boolean>(true)
-    const formState = reactive<FormState>({
+    const formState = reactive<LoginAccount>({
       username: '',
       password: '',
     });
@@ -98,14 +103,17 @@ export default defineComponent({
     };
 
     const handleUserLogin = () => {
-      router.push('/module')
+      apiLogin({...formState}).then(res => {
+        console.log(res)
+        console.log('登录验证成功！');
+        router.push('/module')
+      })
     }
 
     const registerUser = () => {
-      apiGetUserList().then(res => {
-        console.log(res)
+      apiSaveUserInfo(formState).then(() => {
+        message.success('注册成功！')
       })
-      console.log('注册')
     }
 
     const changeLoginType = () => {
@@ -146,6 +154,15 @@ export default defineComponent({
     .login-container-title {
       font-size: 20px;
       margin-bottom: 20px;
+    }
+    .container-avatar{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      .container-avatar-name{
+        font-size: 20px;
+        color: rgb(168, 144, 184);
+      }
     }
   }
 </style>

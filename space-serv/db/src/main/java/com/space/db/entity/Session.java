@@ -7,6 +7,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.experimental.Accessors;
 
 /**
  * <p>
@@ -14,10 +15,11 @@ import lombok.Setter;
  * </p>
  *
  * @author zjy
- * @since 2022-09-22
+ * @since 2022-09-23
  */
 @Getter
 @Setter
+@Accessors(chain = true)
 @TableName("sys_session")
 public class Session implements Serializable {
 
@@ -35,14 +37,9 @@ public class Session implements Serializable {
     private Long loginUserId;
 
     /**
-     * 访问用户名称
+     * 访问用户名
      */
     private String loginUserName;
-
-    /**
-     * 访问用户角色
-     */
-    private String loginUserRoleType;
 
     /**
      * 访问时间

@@ -17,6 +17,13 @@ public class UserServiceImpl implements UserService {
     private UserMapper userMapper;
 
     @Override
+    public User getByUsername(String username) {
+        return userMapper.selectOne(
+                Wrappers.<User> lambdaQuery().eq(User::getUsername,username)
+        );
+    }
+
+    @Override
     public List<User> list() {
         return userMapper.selectList(Wrappers.emptyWrapper());
     }
