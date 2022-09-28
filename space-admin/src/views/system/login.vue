@@ -4,9 +4,9 @@
       <a-col :xs="6" :sm="6" :md="6" :lg="6" :xl="6"></a-col>
       <a-col :xs="12" :sm="12" :md="12" :lg="12" :xl="12">
         <div class="login-container-form">
-          <div style="display: flex">
-            <a-button @click="changeLoginType">登录</a-button>
-            <a-button @click="changeRegisterType">注册</a-button>
+          <div class="container-form-navigation">
+            <a-button class="navigation-login" :class="{'changeLoginTypeBtn':loginType}" @click="changeLoginType" type="text">登录</a-button>
+            <a-button class="navigation-register" :class="{'changeLoginTypeBtn':!loginType}" @click="changeRegisterType" type="text">注册</a-button>
           </div>
           <div class="login-container-title">欢迎来到爷的兴趣空间-{{loginType?'登录':'注册'}}页面</div>
           <div class="container-avatar" v-if="loginType">
@@ -141,15 +141,16 @@ export default defineComponent({
   .login-container{
     width: 100%;
     height: 100vh;
+    background: url("/src/assets/login/login_bg.jpg");
+    background-size: 100% 100%;
     .login-container-form {
       width: calc(100% - 40px);
       margin-top: calc((100vh - 380px) / 2);
       margin-left: 20px;
       margin-right: 20px;
       padding: 4vh;
-      background: url("/src/assets/login/login_bg.jpg");
-      background-size: 100% 100%;
       border-radius: 5px;
+      box-shadow: 0 2px 5px 2px rgba(168, 144, 184, 0.5);
     }
     .login-container-title {
       font-size: 20px;
@@ -161,7 +162,7 @@ export default defineComponent({
       align-items: center;
       .container-avatar-name{
         font-size: 20px;
-        color: rgb(168, 144, 184);
+        color: rgba(218, 13, 106, 0.74);
       }
     }
   }
@@ -176,5 +177,30 @@ export default defineComponent({
       width: 100%;
     }
   }
+}
+
+.container-form-navigation{
+  display: flex;
+  padding-bottom: 20px;
+  .navigation-login,.navigation-register{
+    color: #888888;
+  }
+  .navigation-login::after{
+    content: "";
+    height: 80px;
+    width: 1px;
+    background: rgba(218, 218, 218, 1);
+    margin: auto;
+  }
+}
+
+.changeLoginTypeBtn,.changeLoginTypeBtn:focus{
+  border-bottom: 1px solid rgba(245, 245, 245, 0.85);
+  color: #1a1a1a;
+  font-weight: bold;
+  background-color: rgba(245, 245, 245, 0.71);
+}
+.changeLoginTypeBtn:hover{
+  background-color: rgba(245, 245, 245, 0.85);
 }
 </style>

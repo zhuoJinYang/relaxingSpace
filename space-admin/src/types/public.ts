@@ -1,3 +1,9 @@
+export type ModuleRecord = {
+    id: string,
+    name: string,
+    path: string,
+}
+
 export type MenuRecord = {
     id: string,
     path: string,

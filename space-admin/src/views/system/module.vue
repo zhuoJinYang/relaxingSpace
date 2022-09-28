@@ -6,42 +6,46 @@
       </div>
     </a-layout-header>
     <a-layout-content class="content">
-      <div style="width: 25%;height: 150px;" @click="gotoBlog">
-        <div class="module-item">
-          博客
-        </div>
-      </div>
-      <div style="width: 25%;height: 150px;" @click="gotoPokemon">
-        <div class="module-item">
-          宝可梦图鉴
-        </div>
-      </div>
-
+      <a-row :wrap="true" :gutter="[24,8]">
+        <a-col :span="6" v-for="module in modules">
+          <div class="module-item" @click="gotoModule(module.path)">
+            {{module.name}}
+          </div>
+        </a-col>
+      </a-row>
     </a-layout-content>
     <a-layout-footer>下面放一些说明</a-layout-footer>
   </a-layout>
 </template>
 
 <script lang="ts">
-import {defineComponent} from 'vue'
-import ModuleItem from "@/components/ModuleItem.vue";
+import {defineComponent, reactive} from 'vue'
 import {useRouter} from "vue-router";
+import {ModuleRecord} from "@/types/public";
+
+const moduleList: ModuleRecord[] = [
+  {
+    id: '1',
+    name: '博客',
+    path: '/forum'
+  },
+  {
+    id: '2',
+    name: '宝可梦图鉴',
+    path: '/pokemon'
+  }
+]
 
 export default defineComponent({
-  components:{
-    ModuleItem
-  },
   setup() {
     const router = useRouter()
-    const gotoBlog = () => {
-      router.push('/forum')
-    }
-    const gotoPokemon = () => {
-      router.push('/pokemon')
+    const modules = reactive(moduleList)
+    const gotoModule = (path: string) => {
+      router.push(path)
     }
     return {
-      gotoBlog,
-      gotoPokemon
+      modules,
+      gotoModule
     }
   }
 })
@@ -54,16 +58,19 @@ export default defineComponent({
   font-size: 22px;
 }
 .content{
-  display: flex;
+  padding: 20px 10px;
 }
 .module-item{
-  width: calc(100% - 40px);
-  height: calc(100% - 40px);
-  margin: 20px 20px;
+  width: 100% ;
+  height: 120px;
   border-radius: 8px;
-  background-color: #0be8f7;
+  background-color: rgba(172, 224, 229, 0.51);
   font-size: 18px;
   text-align: center;
-  padding-top: 30px;
+  line-height: 120px;
+  cursor: pointer;
+}
+.module-item:hover{
+  background-color: rgba(172, 224, 229, 1);
 }
 </style>
