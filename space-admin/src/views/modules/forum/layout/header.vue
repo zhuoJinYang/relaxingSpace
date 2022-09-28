@@ -59,6 +59,7 @@ import {defineComponent, reactive, ref} from 'vue'
 import {MenuRecord} from "@/types/public";
 import {SearchOutlined, UserOutlined} from "@ant-design/icons-vue";
 import router from "@/router";
+import {useRoute} from "vue-router";
 
 const menuList: MenuRecord[] = [
   {
@@ -85,9 +86,15 @@ export default defineComponent({
     UserOutlined
   },
   setup() {
-    const currentMenuIndex = ref<string[]>([]);
+    const route = useRoute()
+    let currentMenuIndex = ref<string[]>([]);
     const value = ref<string>('');
     const menus = reactive(menuList)
+
+    const matchMenu = menuList.find(v => v.path === route.path)
+    if (matchMenu){
+      currentMenuIndex = ref([matchMenu.id])
+    }
 
     const handleLogout = () => {
       router.push('/')

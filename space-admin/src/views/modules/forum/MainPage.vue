@@ -1,21 +1,7 @@
 <template>
   <div style="width: 100%;margin-top: 20px;display: flex;padding: 0 20px">
     <div class="page-left">
-      <Blog/>
-      <Blog/>
-      <Blog/>
-      <Blog/>
-      <Blog/>
-      <Blog/>
-      <Blog/>
-      <Blog/>
-      <Blog/>
-      <Blog/>
-      <Blog/>
-      <Blog/>
-      <Blog/>
-      <Blog/>
-      <Blog/>
+      <Blog v-for="i in 20"/>
     </div>
     <div class="page-right">
       <a-affix>

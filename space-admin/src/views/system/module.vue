@@ -8,7 +8,7 @@
     <a-layout-content class="content">
       <a-row :wrap="true" :gutter="[24,8]">
         <a-col :span="6" v-for="module in modules" :key="module.id">
-          <div class="module-item" @click="gotoModule(module.path+(module.defaultPath?module.defaultPath:''))">
+          <div class="module-item" @click="gotoModule(module.path,module.defaultPath)">
             {{module.name}}
           </div>
         </a-col>
@@ -41,8 +41,12 @@ export default defineComponent({
   setup() {
     const router = useRouter()
     const modules = reactive(moduleList)
-    const gotoModule = (path: string) => {
-      router.push(path)
+    const gotoModule = (path: string, defaultPath: string) => {
+      if (defaultPath){
+        router.push(path+defaultPath)
+      }else {
+        router.push(path)
+      }
     }
     return {
       modules,

@@ -110,7 +110,6 @@ export default defineComponent({
     const handleUserLogin = () => {
       store.login({...formState}).then(() => {
         const route = router.currentRoute.value
-        console.log('看看路由信息',route);
         let url = (route.query.redirect || '/module') as string
         if (url.startsWith('/login')){
           url = '/module'
