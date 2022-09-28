@@ -1,7 +1,7 @@
 package com.space.domain.service.impl;
 
+import com.space.db.entity.Account;
 import com.space.db.entity.Session;
-import com.space.db.entity.User;
 import com.space.db.mapper.SessionMapper;
 import com.space.domain.constant.ErrorCode;
 import com.space.domain.exception.ServiceException;
@@ -21,7 +21,7 @@ public class SessionServiceImpl implements SessionService {
     private SessionMapper sessionMapper;
 
     @Override
-    public Session createByUserInfo(User userInfo) {
+    public Session createByUserInfo(Account userInfo) {
         Session session = new Session();
         HttpServletRequest request = HttpRequestUtil.getRequest();
         session.setLoginUserId(userInfo.getId())

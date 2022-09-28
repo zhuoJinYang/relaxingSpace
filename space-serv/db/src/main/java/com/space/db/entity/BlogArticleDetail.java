@@ -23,56 +23,26 @@ import lombok.experimental.Accessors;
 @Getter
 @Setter
 @Accessors(chain = true)
-@TableName("rs_blog_article")
-public class BlogArticle implements Serializable {
+@TableName("rs_blog_article_detail")
+public class BlogArticleDetail implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     /**
-     * 博客id
+     * 博客详情id
      */
     @TableId(value = "id", type = IdType.ASSIGN_ID)
     private Long id;
 
     /**
-     * 博客发表者
+     * 博客id
      */
-    private Long userId;
+    private Long articleId;
 
     /**
-     * 博客标题
+     * 博客内容
      */
-    private String title;
-
-    /**
-     * 博客标签
-     */
-    private String label;
-
-    /**
-     * 博客概述
-     */
-    private String summary;
-
-    /**
-     * 浏览量
-     */
-    private Long previews;
-
-    /**
-     * 收藏量
-     */
-    private Long collections;
-
-    /**
-     * 点赞量
-     */
-    private Long likes;
-
-    /**
-     * 踩量
-     */
-    private Long dislikes;
+    private String context;
 
     /**
      * 逻辑删除标识

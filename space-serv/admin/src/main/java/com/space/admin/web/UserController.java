@@ -1,8 +1,8 @@
 package com.space.admin.web;
 
 import com.space.admin.converter.VoConverter;
-import com.space.db.entity.User;
-import com.space.domain.service.UserService;
+import com.space.db.entity.Account;
+import com.space.domain.service.AccountService;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -12,20 +12,20 @@ import javax.annotation.Resource;
 public class UserController {
 
     @Resource
-    private UserService userService;
+    private AccountService accountService;
 
     @GetMapping("/list")
     public Object list(){
-        return VoConverter.INSTANCE.convertUserList(userService.list());
+        return VoConverter.INSTANCE.convertAccountList(accountService.list());
     }
 
     @PostMapping("/save")
-    public void add(@RequestBody User user){
-        userService.save(user);
+    public void add(@RequestBody Account account){
+        accountService.save(account);
     }
 
     @PostMapping("/del")
     public void del(@RequestBody Long id){
-        userService.del(id);
+        accountService.del(id);
     }
 }

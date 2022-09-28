@@ -2,6 +2,7 @@ export type ModuleRecord = {
     id: string,
     name: string,
     path: string,
+    defaultPath?: string,
 }
 
 export type MenuRecord = {

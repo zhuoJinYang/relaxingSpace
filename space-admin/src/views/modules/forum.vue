@@ -26,7 +26,6 @@ export default defineComponent({
     ForumHeader,
   },
   setup() {
-
     return {
     }
   }
@@ -37,6 +36,5 @@ export default defineComponent({
 .header{
   background-color: #fff;
   padding: 0 24px;
-
 }
 </style>

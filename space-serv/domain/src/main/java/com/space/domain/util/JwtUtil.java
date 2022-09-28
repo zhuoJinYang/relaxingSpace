@@ -3,7 +3,7 @@ package com.space.domain.util;
 import cn.hutool.jwt.JWTUtil;
 import cn.hutool.jwt.signers.JWTSigner;
 import cn.hutool.jwt.signers.JWTSignerUtil;
-import com.space.db.entity.User;
+import com.space.db.entity.Account;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -20,7 +20,7 @@ public class JwtUtil {
     /**
      * 根据信息创建Token
      */
-    public static String createToken(User userInfo){
+    public static String createToken(Account userInfo){
         return create("admin",userInfo.getId());
     }
 

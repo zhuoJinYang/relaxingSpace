@@ -1,10 +1,10 @@
 package com.space.domain.service;
 
+import com.space.db.entity.Account;
 import com.space.db.entity.Session;
-import com.space.db.entity.User;
 
 public interface SessionService {
-    Session createByUserInfo(User userInfo);
+    Session createByUserInfo(Account account);
 
     void save(Session session);
 }

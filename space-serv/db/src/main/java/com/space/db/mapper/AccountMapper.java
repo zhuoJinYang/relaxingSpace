@@ -1,6 +1,6 @@
 package com.space.db.mapper;
 
-import com.space.db.entity.User;
+import com.space.db.entity.Account;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
@@ -9,8 +9,8 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * </p>
  *
  * @author zjy
- * @since 2022-09-21
+ * @since 2022-09-28
  */
-public interface UserMapper extends BaseMapper<User> {
+public interface AccountMapper extends BaseMapper<Account> {
 
 }

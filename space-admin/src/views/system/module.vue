@@ -7,14 +7,14 @@
     </a-layout-header>
     <a-layout-content class="content">
       <a-row :wrap="true" :gutter="[24,8]">
-        <a-col :span="6" v-for="module in modules">
-          <div class="module-item" @click="gotoModule(module.path)">
+        <a-col :span="6" v-for="module in modules" :key="module.id">
+          <div class="module-item" @click="gotoModule(module.path+(module.defaultPath?module.defaultPath:''))">
             {{module.name}}
           </div>
         </a-col>
       </a-row>
     </a-layout-content>
-    <a-layout-footer>下面放一些说明</a-layout-footer>
+    <a-layout-footer class="footer">扬哥的地域,领域展开！！！</a-layout-footer>
   </a-layout>
 </template>
 
@@ -27,7 +27,8 @@ const moduleList: ModuleRecord[] = [
   {
     id: '1',
     name: '博客',
-    path: '/forum'
+    path: '/forum',
+    defaultPath: '/mainPage',
   },
   {
     id: '2',
@@ -72,5 +73,15 @@ export default defineComponent({
 }
 .module-item:hover{
   background-color: rgba(172, 224, 229, 1);
+}
+.footer{
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  padding: 0;
+  height: 40px;
+  text-align: center;
+  line-height: 40px;
+  color: rgba(218, 106, 87, 0.88);
 }
 </style>

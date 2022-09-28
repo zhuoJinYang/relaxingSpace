@@ -2,7 +2,7 @@ package com.space.domain.model;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
-import com.space.db.entity.User;
+import com.space.db.entity.Account;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,9 +12,9 @@ public class LoginResult {
     private String token;
     private LoginUser user;
 
-    public LoginResult(String token,User user){
+    public LoginResult(String token, Account account){
         this.token = token;
-        this.user = new LoginUser(user);
+        this.user = new LoginUser(account);
     }
 
     @Getter
@@ -23,9 +23,9 @@ public class LoginResult {
         @JsonSerialize(using = ToStringSerializer.class)
         private Long id;
         private String username;
-        public LoginUser(User user){
-            this.id = user.getId();
-            this.username = user.getUsername();
+        public LoginUser(Account account){
+            this.id = account.getId();
+            this.username = account.getUsername();
         }
     }
 }

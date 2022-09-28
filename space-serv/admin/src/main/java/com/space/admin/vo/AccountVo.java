@@ -7,7 +7,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class UserVo {
+public class AccountVo {
     @JsonSerialize(using = ToStringSerializer.class)
     private Long id;
     private String username;
