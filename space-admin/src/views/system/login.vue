@@ -57,13 +57,13 @@
   </div>
 </template>
 <script lang="ts">
-import {defineComponent, reactive, ref} from 'vue';
+import {computed, defineComponent, reactive, ref} from 'vue';
 import { UserOutlined, LockOutlined } from '@ant-design/icons-vue';
 import router from "@/router";
 import {apiSaveUserInfo} from "@/api/user";
 import {message} from "ant-design-vue";
 import {LoginAccount} from "@/types/user";
-import {apiLogin} from "@/api/auth";
+import {useUserStore} from "@/store/user";
 
 export default defineComponent({
   components:{
@@ -71,12 +71,17 @@ export default defineComponent({
     LockOutlined,
   },
   setup() {
+    const store = useUserStore()
+    // 登录/注册状态判断
     let loginType = ref<boolean>(true)
+
+    // 表单数据
     const formState = reactive<LoginAccount>({
       username: '',
       password: '',
     });
 
+    // 登录表单校验规则
     const loginRules = reactive({
       username:[
         {
@@ -103,10 +108,16 @@ export default defineComponent({
     };
 
     const handleUserLogin = () => {
-      apiLogin({...formState}).then(res => {
-        console.log(res)
-        console.log('登录验证成功！');
-        router.push('/module')
+      store.login({...formState}).then(() => {
+        const route = router.currentRoute.value
+        console.log('看看路由信息',route);
+        let url = (route.query.redirect || '/module') as string
+        if (url.startsWith('/login')){
+          url = '/module'
+        }
+        router.push(url)
+      }).catch(err => {
+        console.log('登录错误', err)
       })
     }
 
@@ -138,34 +149,34 @@ export default defineComponent({
 
 </script>
 <style scoped lang="scss">
-  .login-container{
-    width: 100%;
-    height: 100vh;
-    background: url("/src/assets/login/login_bg.jpg");
-    background-size: 100% 100%;
-    .login-container-form {
-      width: calc(100% - 40px);
-      margin-top: calc((100vh - 380px) / 2);
-      margin-left: 20px;
-      margin-right: 20px;
-      padding: 4vh;
-      border-radius: 5px;
-      box-shadow: 0 2px 5px 2px rgba(168, 144, 184, 0.5);
-    }
-    .login-container-title {
+.login-container{
+  width: 100%;
+  height: 100vh;
+  background: url("/src/assets/login/login_bg.jpg");
+  background-size: 100% 100%;
+  .login-container-form {
+    width: calc(100% - 40px);
+    margin-top: calc((100vh - 380px) / 2);
+    margin-left: 20px;
+    margin-right: 20px;
+    padding: 4vh;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px 2px rgba(168, 144, 184, 0.5);
+  }
+  .login-container-title {
+    font-size: 20px;
+    margin-bottom: 20px;
+  }
+  .container-avatar{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .container-avatar-name{
       font-size: 20px;
-      margin-bottom: 20px;
-    }
-    .container-avatar{
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      .container-avatar-name{
-        font-size: 20px;
-        color: rgba(218, 13, 106, 0.74);
-      }
+      color: rgba(218, 13, 106, 0.74);
     }
   }
+}
 </style>
 <style lang="scss">
 .login-container{
@@ -184,13 +195,6 @@ export default defineComponent({
   padding-bottom: 20px;
   .navigation-login,.navigation-register{
     color: #888888;
-  }
-  .navigation-login::after{
-    content: "";
-    height: 80px;
-    width: 1px;
-    background: rgba(218, 218, 218, 1);
-    margin: auto;
   }
 }
 
