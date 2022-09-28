@@ -24,8 +24,11 @@ public enum ErrorCode {
     DATABASE_UPDATE_FAIL(1101, "更新数据失败"),
     DATABASE_DELETE_FAIL(1102, "删除数据失败"),
 
+
     INVALID_TOKEN(2000,"无效的登录凭证"),
     USERNAME_PASSWORD_ERROR(2001,"用户名或密码错误"),
+    PASSWORD_NULL(2002,"密码不能为空"),
+    PASSWORD_DECRYPT_ERROR(2099,"密码解密错误"),
     NO_PERMISSION(2100,"没有访问或操作权限"),
 
     USER_NOT_EXIST(3000,"用户信息不存在");
