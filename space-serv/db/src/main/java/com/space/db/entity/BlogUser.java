@@ -18,13 +18,13 @@ import lombok.experimental.Accessors;
  * </p>
  *
  * @author zjy
- * @since 2022-09-23
+ * @since 2022-09-28
  */
 @Getter
 @Setter
 @Accessors(chain = true)
-@TableName("rs_blog_info")
-public class BlogInfo implements Serializable {
+@TableName("rs_blog_user")
+public class BlogUser implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -35,9 +35,9 @@ public class BlogInfo implements Serializable {
     private Long id;
 
     /**
-     * 用户id
+     * 账户id
      */
-    private Long userId;
+    private Long accountId;
 
     /**
      * 用户昵称

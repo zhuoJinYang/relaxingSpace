@@ -18,13 +18,13 @@ import lombok.experimental.Accessors;
  * </p>
  *
  * @author zjy
- * @since 2022-09-23
+ * @since 2022-09-28
  */
 @Getter
 @Setter
 @Accessors(chain = true)
-@TableName("sys_user")
-public class User implements Serializable {
+@TableName("sys_account")
+public class Account implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
