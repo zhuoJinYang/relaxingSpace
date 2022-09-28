@@ -1,13 +1,1 @@
-custom:
-  security:
-    rsa-password:
-      private-key: "MIIBVAIBADANBgkqhkiG9w0BAQEFAASCAT4wggE6AgEAAkEAvJA2vLiwNrNi5tHD
-                    yD+B3fJQTd0p6IXklzvWQDmeYwH3y33UWjpZpMbvFPSDKvO50mskpsiKtQiRordt
-                    QPL7KwIDAQABAkBSkqiVrh7kZVvLDlK47y6UndcSseX3QCLhIz/ochLs8aAmG2y6
-                    FzeV6NdVPwPF3XuM4SQmXaFUQzAwQROB1tNxAiEA4tkJAHlg6Qg/JCw8OUv6XEQi
-                    fI9mj+qDIgmPn98kafMCIQDUy6zdmwpljJ85Rw53VpLOeRec/Xi6k2PUYiIs/4V/
-                    6QIgZ00WQFUFwJi0yDAsrJrgw6tzWO2kct0EIjfgY5kl5+kCIGmTH5HW8SKO0RR2
-                    14uHzVBZLcj6zOIsbBQcF/6hS5e5AiEAsBY7eX8/Ya5Gyug/nk9aWeKlqMlpwFqX
-                    6cYKi2L88N8="
-      public-key: "MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBALyQNry4sDazYubRw8g/gd3yUE3dKeiF
-                   5Jc71kA5nmMB98t91Fo6WaTG7xT0gyrzudJrJKbIirUIkaK3bUDy+ysCAwEAAQ=="
+

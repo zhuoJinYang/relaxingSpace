@@ -57,13 +57,13 @@
   </div>
 </template>
 <script lang="ts">
-import {computed, defineComponent, reactive, ref} from 'vue';
+import {defineComponent, reactive, ref} from 'vue';
 import { UserOutlined, LockOutlined } from '@ant-design/icons-vue';
 import router from "@/router";
 import {apiSaveUserInfo} from "@/api/user";
 import {message} from "ant-design-vue";
 import {LoginAccount} from "@/types/user";
-import {useUserStore} from "@/store/user";
+import {apiLogin} from "@/api/auth";
 
 export default defineComponent({
   components:{
@@ -71,17 +71,12 @@ export default defineComponent({
     LockOutlined,
   },
   setup() {
-    const store = useUserStore()
-    // 登录/注册状态判断
     let loginType = ref<boolean>(true)
-
-    // 表单数据
     const formState = reactive<LoginAccount>({
       username: '',
       password: '',
     });
 
-    // 登录表单校验规则
     const loginRules = reactive({
       username:[
         {
@@ -108,16 +103,10 @@ export default defineComponent({
     };
 
     const handleUserLogin = () => {
-      store.login({...formState}).then(() => {
-        const route = router.currentRoute.value
-        console.log('看看路由信息',route);
-        let url = (route.query.redirect || '/module') as string
-        if (url.startsWith('/login')){
-          url = '/module'
-        }
-        router.push(url)
-      }).catch(err => {
-        console.log('登录错误', err)
+      apiLogin({...formState}).then(res => {
+        console.log(res)
+        console.log('登录验证成功！');
+        router.push('/module')
       })
     }
 
@@ -195,6 +184,13 @@ export default defineComponent({
   padding-bottom: 20px;
   .navigation-login,.navigation-register{
     color: #888888;
+  }
+  .navigation-login::after{
+    content: "";
+    height: 80px;
+    width: 1px;
+    background: rgba(218, 218, 218, 1);
+    margin: auto;
   }
 }
 
