@@ -2,7 +2,7 @@ export type BlogModel = {
     id: string,
     userId?: string,
     title: string,
-    label: string,
+    label: string[],
     summary?: string,
     preview?: string,
     collections?: string,

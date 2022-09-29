@@ -35,7 +35,6 @@ public class AuthController {
 
     @PostMapping("/login")
     public LoginResult login(@Validated @RequestBody LoginParam account){
-        log.info("uuid -- "+account.getUuid());
         if (!CaptchaUtils.verify(account.getUuid(),account.getCaptcha())){
             throw new ServiceException(ErrorCode.CAPTCHA_VERIFY_ERROR);
         }
@@ -51,7 +50,6 @@ public class AuthController {
 
     @GetMapping("/getCaptcha")
     public void getCaptcha(String uuid, HttpServletResponse response) throws IOException {
-        log.info("uuid == "+uuid);
         CaptchaUtils.getCircleCaptcha(uuid, response);
     }
 

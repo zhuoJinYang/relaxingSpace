@@ -15,6 +15,7 @@
             <div class="container-avatar-name">爷就是天</div>
           </div>
           <a-form
+              ref="loginForm"
               :model="formState"
               :rules="loginRules"
               @finish="onFinish"
@@ -22,7 +23,6 @@
           >
             <a-form-item
                 name="username"
-                :rules="[{ required: true, message: '请输入账号' }]"
             >
               <a-input v-model:value="formState.username"
                        placeholder="请输入账号">
@@ -34,7 +34,6 @@
 
             <a-form-item
                 name="password"
-                :rules="[{ required: true, message: '请输入密码' }]"
             >
               <a-input-password v-model:value="formState.password"
                                 placeholder="请输入密码">
@@ -46,6 +45,7 @@
 
             <a-form-item
                 name="captcha"
+                v-if="loginType"
             >
               <div style="display: flex;align-items: center">
                 <a-image
@@ -89,7 +89,7 @@ export default defineComponent({
     const store = useUserStore()
     // 登录/注册状态判断
     let loginType = ref<boolean>(true)
-
+    const loginForm = ref()
     // 表单数据
     const formState = reactive<LoginAccount>({
       username: '',
@@ -113,6 +113,13 @@ export default defineComponent({
           message: '请输入密码',
           trigger: 'change'
         }
+      ],
+      captcha:[
+        {
+          require: true,
+          message: '请输入验证码',
+          trigger: 'change'
+        }
       ]
     })
 
@@ -125,16 +132,18 @@ export default defineComponent({
     };
 
     const handleUserLogin = () => {
-      store.login({...formState}).then(() => {
-        const route = router.currentRoute.value
-        let url = (route.query.redirect || '/module') as string
-        if (url.startsWith('/login')){
-          url = '/module'
-        }
-        message.success('登录成功！')
-        router.push(url)
-      }).catch(err => {
-        console.log('登录错误', err)
+      loginForm.value.validate().then(() => {
+        store.login({...formState}).then(() => {
+          const route = router.currentRoute.value
+          let url = (route.query.redirect || '/module') as string
+          if (url.startsWith('/login')){
+            url = '/module'
+          }
+          message.success('登录成功！')
+          router.push(url)
+        }).catch(err => {
+          console.log('登录错误', err)
+        })
       })
     }
 
@@ -152,11 +161,11 @@ export default defineComponent({
     }
 
     const getCaptcha = (uuid: string) => {
-      console.log(uuid)
       return apiGetCaptcha(uuid)
     }
 
     return {
+      loginForm,
       loginType,
       formState,
       loginRules,

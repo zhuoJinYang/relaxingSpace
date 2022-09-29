@@ -1,56 +1,60 @@
 <template>
-<!--  <div>-->
-<!--    <div>标题</div>-->
-<!--    <div>标签</div>-->
-<!--    <div>概述</div>-->
-<!--    <div>内容</div>-->
-<!--  </div>-->
-  <a-form
-      ref="BlogEdit"
-      :model="blogData"
-      name="blogEdit"
-      :label-col="{ span: 2 }"
-      :wrapper-col="{ span: 24 }"
-      autocomplete="off">
-    <a-form-item
-        label="标题"
-        name="title"
-        :rules="[{ required: true}]">
-      <a-input v-model:value="blogData.title" />
-    </a-form-item>
-    <a-form-item
-        label="标签"
-        name="label"
-        :rules="[{ required: true}]">
-      <a-input v-model:value="blogData.label" />
-    </a-form-item>
-    <a-form-item
-        label="概述"
-        name="summary"
-        :rules="[{ required: true}]">
-      <a-input v-model:value="blogData.summary" />
-    </a-form-item>
-    <a-form-item
-        label="内容"
-        name="content">
-      <!--   富文本   -->
-      <div style="border: 1px solid #ccc">
-        <Toolbar
-            style="border-bottom: 1px solid #ccc"
-            :editor="editorRef"
-            :defaultConfig="toolbarConfig"
-            :mode="mode"
-        />
-        <Editor
-            style="height: 500px; overflow-y: hidden;"
-            v-model="valueHtml"
-            :defaultConfig="editorConfig"
-            :mode="mode"
-            @onCreated="handleCreated"
-        />
-      </div>
-    </a-form-item>
-  </a-form>
+  <div style="width: 100%;height: 100vh;display: flex;flex-direction: column">
+    <a-button style="margin: 10px 20px 10px auto;" type="primary" @click="publish">发布</a-button>
+    <a-form
+        style="margin: 0 30px;float: right"
+        ref="BlogEdit"
+        :model="blogData"
+        name="blogEdit"
+        :label-col="{ span: 2 }"
+        :wrapper-col="{ span: 24 }"
+        autocomplete="off">
+      <a-form-item
+          label="标题"
+          name="title"
+          :rules="[{ required: true}]">
+        <a-input v-model:value="blogData.title" placeholder="请输入博客标题"/>
+      </a-form-item>
+      <a-form-item
+          label="标签"
+          name="label"
+          :rules="[{ required: true}]">
+        <a-select
+            v-model:value="blogData.label"
+            mode="tags"
+            :tokenSeparators="[',']"
+            placeholder="设置博客的标签,并按回车分割"
+            :open="false"
+        ></a-select>
+      </a-form-item>
+      <a-form-item
+          label="概述"
+          name="summary"
+          :rules="[{ required: false}]">
+        <a-input v-model:value="blogData.summary" placeholder="请输入博客概述"/>
+      </a-form-item>
+      <a-form-item
+          label="内容"
+          name="content">
+        <!--   富文本   -->
+        <div style="border: 1px solid #ccc">
+          <Toolbar
+              style="border-bottom: 1px solid #ccc"
+              :editor="editorRef"
+              :defaultConfig="toolbarConfig"
+              :mode="mode"
+          />
+          <Editor
+              style="height: 500px; overflow-y: hidden;"
+              v-model="valueHtml"
+              :defaultConfig="editorConfig"
+              :mode="mode"
+              @onCreated="handleCreated"
+          />
+        </div>
+      </a-form-item>
+    </a-form>
+  </div>
 </template>
 
 <script lang="ts">
@@ -65,7 +69,11 @@ export default defineComponent({
     Toolbar
   },
   setup() {
-    const blogData = reactive<BlogModel>({id:'',userId:'',title:'',label:''})
+    const blogData = reactive<BlogModel>({id:'',userId:'',title:'',label:[]})
+
+    const publish = () => {
+      console.log('publish')
+    }
 
     // 编辑器实例，必须用 shallowRef
     const editorRef = shallowRef()
@@ -81,7 +89,7 @@ export default defineComponent({
     onMounted(() => {
       setTimeout(() => {
         valueHtml.value = '<p>模拟 Ajax 异步设置内容</p>'
-      }, 1500)
+      }, 500)
     })
 
     // 组件销毁时，也及时销毁编辑器
@@ -103,7 +111,8 @@ export default defineComponent({
       mode: 'default', // 或 'simple'
       toolbarConfig,
       editorConfig,
-      handleCreated
+      handleCreated,
+      publish
     }
   }
 })

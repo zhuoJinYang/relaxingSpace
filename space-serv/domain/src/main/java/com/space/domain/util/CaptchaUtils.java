@@ -82,10 +82,6 @@ public class CaptchaUtils {
      * @param code 验证码
      */
     public static  boolean verify(String uuid, String code) {
-        String s = Optional
-                .ofNullable(CODE_MAP.get(uuid)).orElse(CODE_MAP.get(uuid));
-        log.info("CODE_MAP: "+CODE_MAP);
-        log.info("s---- : "+s);
         String captcha = Optional
                 .ofNullable(CODE_MAP.get(uuid))
                 .orElse(CODE_MAP.get(uuid));
