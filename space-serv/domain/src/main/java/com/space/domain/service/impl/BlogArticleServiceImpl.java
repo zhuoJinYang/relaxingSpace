@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.space.db.entity.BlogArticle;
 import com.space.db.mapper.BlogArticleMapper;
 import com.space.domain.service.BlogArticleService;
+import lombok.NonNull;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -30,7 +31,7 @@ public class BlogArticleServiceImpl implements BlogArticleService {
     }
 
     @Override
-    public void del(Long id) {
+    public void del(@NonNull Long id) {
         articleMapper.deleteById(id);
     }
 }

@@ -1,6 +1,7 @@
 package com.space.domain.service;
 
 import com.space.db.entity.BlogArticle;
+import lombok.NonNull;
 
 import java.util.List;
 
@@ -9,5 +10,5 @@ public interface BlogArticleService {
 
     void save(BlogArticle blogArticle);
 
-    void del(Long id);
+    void del(@NonNull Long id);
 }

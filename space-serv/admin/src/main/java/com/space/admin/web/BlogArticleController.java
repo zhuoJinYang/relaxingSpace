@@ -3,6 +3,7 @@ package com.space.admin.web;
 import com.space.admin.converter.VoConverter;
 import com.space.db.entity.BlogArticle;
 import com.space.domain.service.BlogArticleService;
+import lombok.NonNull;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -25,7 +26,7 @@ public class BlogArticleController {
     }
 
     @PostMapping("/del")
-    public void delete(@RequestBody Long id){
+    public void delete(@RequestBody @NonNull Long id){
         blogArticleService.del(id);
     }
 }

@@ -108,16 +108,17 @@ export default defineComponent({
     };
 
     const handleUserLogin = () => {
-      store.login({...formState}).then(() => {
-        const route = router.currentRoute.value
-        let url = (route.query.redirect || '/module') as string
-        if (url.startsWith('/login')){
-          url = '/module'
-        }
-        router.push(url)
-      }).catch(err => {
-        console.log('登录错误', err)
-      })
+      // store.login({...formState}).then(() => {
+      //   const route = router.currentRoute.value
+      //   let url = (route.query.redirect || '/module') as string
+      //   if (url.startsWith('/login')){
+      //     url = '/module'
+      //   }
+      //   router.push(url)
+      // }).catch(err => {
+      //   console.log('登录错误', err)
+      // })
+      router.push(url)
     }
 
     const registerUser = () => {

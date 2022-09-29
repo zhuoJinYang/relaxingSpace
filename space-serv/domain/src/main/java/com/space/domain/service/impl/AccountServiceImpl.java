@@ -32,6 +32,7 @@ public class AccountServiceImpl implements AccountService {
     public void save(Account account) {
         if (ObjectUtil.isEmpty(account.getId())){
             accountMapper.insert(account);
+            accountMapper.insert()
         }else {
             accountMapper.updateById(account);
         }
