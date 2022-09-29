@@ -21,3 +21,15 @@ export interface UserSuccessData extends ApiResult{
     phone?:string,
     email?:string
 }
+
+export interface BlogSucessData extends ApiResult{
+    id: string,
+    userId?: string,
+    title: string,
+    label: string,
+    summary?: string,
+    preview?: string,
+    collections?: string,
+    likes?: string,
+    dislikes?: string,
+}

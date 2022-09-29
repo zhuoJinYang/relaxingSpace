@@ -13,5 +13,9 @@ export const forumModuleRoutes :  Array<RouteRecordRaw> = [
     {
         path:"/forum/writeMessage",
         component: () => import('@/views/modules/forum/WriteMessage.vue')
+    },
+    {
+        path:"/forum/editBlog",
+        component: () => import('@/views/modules/forum/EditBlog.vue')
     }
 ]

@@ -41,10 +41,13 @@
         </div>
         <template #overlay>
           <a-menu>
-            <a-menu-item key="1" @click="returnModule">
+            <a-menu-item key="1" @click="handleWriteBlog">
+              编写文章
+            </a-menu-item>
+            <a-menu-item key="2" @click="returnModule">
               返回模块页面
             </a-menu-item>
-            <a-menu-item key="2" @click="handleLogout">
+            <a-menu-item key="3" @click="handleLogout">
               退出登录
             </a-menu-item>
           </a-menu>
@@ -96,6 +99,9 @@ export default defineComponent({
       currentMenuIndex = ref([matchMenu.id])
     }
 
+    const handleWriteBlog = () => {
+      router.push('/forum/editBlog')
+    }
     const handleLogout = () => {
       router.push('/')
     }
@@ -106,7 +112,7 @@ export default defineComponent({
       currentMenuIndex,
       menus,
       value,
-
+      handleWriteBlog,
       handleLogout,
       returnModule
     }
