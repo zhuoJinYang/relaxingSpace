@@ -24,6 +24,10 @@ public enum ErrorCode {
     DATABASE_UPDATE_FAIL(1101, "更新数据失败"),
     DATABASE_DELETE_FAIL(1102, "删除数据失败"),
 
+    FILE_SAVE_FAIL(1200,"文件上传保存失败"),
+    FILE_NOT_EXIT(1202,"文件不存在"),
+    FILE_DOWNLOAD_FAIL(1203,"文件下载失败"),
+
 
     INVALID_TOKEN(2000,"无效的登录凭证"),
     USERNAME_PASSWORD_ERROR(2001,"用户名或密码错误"),

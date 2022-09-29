@@ -14,6 +14,7 @@ public interface VoConverter {
 
     BlogArticleVo convert(BlogArticle record);
     BlogArticleVo convert(BlogArticleDto record);
+    FileStorageVo convert(FileStorage record);
 
     List<BlogArticleVo> convertBlogArticleList(List<BlogArticle> recordList);
     List<BlogArticleVo> convertBlogArticleDtoList(List<BlogArticleDto> recordList);

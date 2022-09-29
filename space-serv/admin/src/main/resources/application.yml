@@ -9,3 +9,7 @@ spring:
     active: "@profiles.active@"
     group:
       "dev": "dev,db-dev,domain-dev"
+
+custom:
+  file-storage:
+    root-path: "C:\\dev\\upload\\"
