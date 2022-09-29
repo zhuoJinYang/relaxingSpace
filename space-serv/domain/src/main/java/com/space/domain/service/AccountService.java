@@ -1,6 +1,7 @@
 package com.space.domain.service;
 
 import com.space.db.entity.Account;
+import lombok.NonNull;
 
 import java.util.List;
 
@@ -9,8 +10,8 @@ public interface AccountService {
 
     List<Account> list();
 
-    void save(Account user);
+    void save(@NonNull Account user);
 
-    void del(Long id);
+    void del(@NonNull Long id);
 
 }

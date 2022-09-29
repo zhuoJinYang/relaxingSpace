@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.space.db.entity.Account;
 import com.space.db.mapper.AccountMapper;
 import com.space.domain.service.AccountService;
+import lombok.NonNull;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -30,7 +31,7 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public void save(Account account) {
+    public void save(@NonNull Account account) {
         if (ObjectUtil.isEmpty(account.getId())){
             accountMapper.insert(account);
         }else {
@@ -39,7 +40,7 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public void del(Long id) {
+    public void del(@NonNull Long id) {
         accountMapper.deleteById(id);
     }
 }

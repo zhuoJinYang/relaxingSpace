@@ -8,7 +8,7 @@ import java.util.List;
 public interface BlogArticleService {
     List<BlogArticle> list();
 
-    void save(BlogArticle blogArticle);
+    void save(@NonNull BlogArticle blogArticle);
 
     void del(@NonNull Long id);
 }

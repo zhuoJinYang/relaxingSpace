@@ -22,7 +22,7 @@ public class BlogArticleServiceImpl implements BlogArticleService {
     }
 
     @Override
-    public void save(BlogArticle blogArticle) {
+    public void save(@NonNull BlogArticle blogArticle) {
         if (ObjectUtil.isEmpty(blogArticle.getId())){
             articleMapper.insert(blogArticle);
         }else {
