@@ -2,8 +2,11 @@ package com.space.admin.web;
 
 import cn.hutool.core.util.StrUtil;
 import com.space.db.entity.Account;
+import com.space.domain.constant.ErrorCode;
+import com.space.domain.exception.ServiceException;
 import com.space.domain.model.LoginResult;
 import com.space.domain.service.AuthService;
+import com.space.domain.util.CaptchaUtils;
 import com.space.domain.util.RSAUtil;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,7 +16,9 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.constraints.NotBlank;
+import java.io.IOException;
 
 @Slf4j
 @RestController
@@ -30,6 +35,10 @@ public class AuthController {
 
     @PostMapping("/login")
     public LoginResult login(@Validated @RequestBody LoginParam account){
+        log.info("uuid -- "+account.getUuid());
+        if (!CaptchaUtils.verify(account.getUuid(),account.getCaptcha())){
+            throw new ServiceException(ErrorCode.CAPTCHA_VERIFY_ERROR);
+        }
         return authService.login(account.getUsername(),RSAUtil.passwordDecrypt(account.getPassword()));
     }
 
@@ -40,13 +49,21 @@ public class AuthController {
         }
     }
 
+    @GetMapping("/getCaptcha")
+    public void getCaptcha(String uuid, HttpServletResponse response) throws IOException {
+        log.info("uuid == "+uuid);
+        CaptchaUtils.getCircleCaptcha(uuid, response);
+    }
+
     @Getter
     @Setter
     static class LoginParam{
+        private String uuid;
         @NotBlank(message = "账号不能为空")
         private String username;
         @NotBlank(message = "密码不能为空")
         private String password;
-        private String captchaVerification;
+        @NotBlank(message = "验证码不能为空")
+        private String captcha;
     }
 }

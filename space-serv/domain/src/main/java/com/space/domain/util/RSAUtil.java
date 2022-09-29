@@ -51,6 +51,7 @@ public class RSAUtil {
      * 解密
      */
     public static String passwordDecrypt(String encryptPassword){
+        log.info("encryptPassword密码为：--"+encryptPassword);
         if (StrUtil.isBlank(encryptPassword)) {
             throw new ServiceException(ErrorCode.PASSWORD_NULL);
         }

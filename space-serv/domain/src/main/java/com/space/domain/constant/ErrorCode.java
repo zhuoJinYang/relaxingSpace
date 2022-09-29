@@ -28,6 +28,7 @@ public enum ErrorCode {
     FILE_NOT_EXIT(1202,"文件不存在"),
     FILE_DOWNLOAD_FAIL(1203,"文件下载失败"),
 
+    CAPTCHA_VERIFY_ERROR(1300,"验证码错误"),
 
     INVALID_TOKEN(2000,"无效的登录凭证"),
     USERNAME_PASSWORD_ERROR(2001,"用户名或密码错误"),

@@ -44,6 +44,20 @@
               </a-input-password>
             </a-form-item>
 
+            <a-form-item
+                name="captcha"
+            >
+              <div style="display: flex;align-items: center">
+                <a-image
+                    :src="getCaptcha('abc')"
+                    :preview="false"
+                />
+                <a-input style="margin-left: 20px" v-model:value="formState.captcha"
+                         placeholder="请输入验证码">
+                </a-input>
+              </div>
+            </a-form-item>
+
             <a-form-item>
               <a-button v-if="loginType" type="primary" html-type="submit" @click="handleUserLogin">登录</a-button>
               <a-button v-else type="primary" @click="registerUser">注册</a-button>
@@ -64,6 +78,7 @@ import {apiSaveUserInfo} from "@/api/user";
 import {message} from "ant-design-vue";
 import {LoginAccount} from "@/types/user";
 import {useUserStore} from "@/store/user";
+import {apiGetCaptcha} from "@/api/auth";
 
 export default defineComponent({
   components:{
@@ -79,6 +94,8 @@ export default defineComponent({
     const formState = reactive<LoginAccount>({
       username: '',
       password: '',
+      uuid: 'abc',
+      captcha: '',
     });
 
     // 登录表单校验规则
@@ -108,17 +125,17 @@ export default defineComponent({
     };
 
     const handleUserLogin = () => {
-      // store.login({...formState}).then(() => {
-      //   const route = router.currentRoute.value
-      //   let url = (route.query.redirect || '/module') as string
-      //   if (url.startsWith('/login')){
-      //     url = '/module'
-      //   }
-      //   router.push(url)
-      // }).catch(err => {
-      //   console.log('登录错误', err)
-      // })
-      router.push(url)
+      store.login({...formState}).then(() => {
+        const route = router.currentRoute.value
+        let url = (route.query.redirect || '/module') as string
+        if (url.startsWith('/login')){
+          url = '/module'
+        }
+        message.success('登录成功！')
+        router.push(url)
+      }).catch(err => {
+        console.log('登录错误', err)
+      })
     }
 
     const registerUser = () => {
@@ -133,10 +150,17 @@ export default defineComponent({
     const changeRegisterType = () => {
       loginType.value = false
     }
+
+    const getCaptcha = (uuid: string) => {
+      console.log(uuid)
+      return apiGetCaptcha(uuid)
+    }
+
     return {
       loginType,
       formState,
       loginRules,
+      getCaptcha,
       onFinish,
       onFinishFailed,
       handleUserLogin,
