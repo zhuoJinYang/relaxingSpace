@@ -18,11 +18,10 @@
               ref="loginForm"
               :model="formState"
               :rules="loginRules"
-              @finish="onFinish"
-              @finishFailed="onFinishFailed"
           >
             <a-form-item
                 name="username"
+                :rules="[{ required: true, message: '请输入账号' }]"
             >
               <a-input v-model:value="formState.username"
                        placeholder="请输入账号">
@@ -34,6 +33,7 @@
 
             <a-form-item
                 name="password"
+                :rules="[{ required: true, message: '请输入密码' }]"
             >
               <a-input-password v-model:value="formState.password"
                                 placeholder="请输入密码">
@@ -46,6 +46,7 @@
             <a-form-item
                 name="captcha"
                 v-if="loginType"
+                :rules="[{ required: true, message: '请输入验证码' }]"
             >
               <div style="display: flex;align-items: center">
                 <a-image
@@ -59,7 +60,7 @@
             </a-form-item>
 
             <a-form-item>
-              <a-button v-if="loginType" type="primary" html-type="submit" @click="handleUserLogin">登录</a-button>
+              <a-button v-if="loginType" type="primary" @click="handleUserLogin">登录</a-button>
               <a-button v-else type="primary" @click="registerUser">注册</a-button>
             </a-form-item>
           </a-form>
@@ -89,7 +90,6 @@ export default defineComponent({
     const store = useUserStore()
     // 登录/注册状态判断
     let loginType = ref<boolean>(true)
-    const loginForm = ref()
     // 表单数据
     const formState = reactive<LoginAccount>({
       username: '',
@@ -97,6 +97,8 @@ export default defineComponent({
       uuid: 'abc',
       captcha: '',
     });
+
+    const loginForm = ref()
 
     // 登录表单校验规则
     const loginRules = reactive({
@@ -144,6 +146,8 @@ export default defineComponent({
         }).catch(err => {
           console.log('登录错误', err)
         })
+      }).catch(() => {
+        console.log('校验失败')
       })
     }
 
