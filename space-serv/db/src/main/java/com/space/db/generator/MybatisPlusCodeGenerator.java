@@ -30,8 +30,8 @@ public class MybatisPlusCodeGenerator {
 //            "rs_blog_article",
 //            "rs_blog_article_detail",
 //            "rs_blog_user",
-//            "sys_account",
-            "sys_file_storage"
+            "sys_account"
+//            "sys_file_storage",
 //            "sys_schedule",
 //            "sys_session"
     );

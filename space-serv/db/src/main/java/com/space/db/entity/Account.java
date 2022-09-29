@@ -18,7 +18,7 @@ import lombok.experimental.Accessors;
  * </p>
  *
  * @author zjy
- * @since 2022-09-28
+ * @since 2022-09-29
  */
 @Getter
 @Setter
@@ -53,6 +53,11 @@ public class Account implements Serializable {
      * 邮箱
      */
     private String email;
+
+    /**
+     * 状态：Y-正常；N-禁用；
+     */
+    private String status;
 
     /**
      * 删除标识

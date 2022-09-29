@@ -14,4 +14,9 @@ public interface AccountService {
 
     void del(@NonNull Long id);
 
+    void enableById(@NonNull Long id);
+
+    void disableById(@NonNull Long id);
+
+    void changePassword(@NonNull Long id,@NonNull String password,@NonNull String newPassword);
 }

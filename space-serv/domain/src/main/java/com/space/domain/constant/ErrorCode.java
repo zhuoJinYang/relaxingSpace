@@ -35,7 +35,8 @@ public enum ErrorCode {
     PASSWORD_DECRYPT_ERROR(2099,"密码解密错误"),
     NO_PERMISSION(2100,"没有访问或操作权限"),
 
-    USER_NOT_EXIST(3000,"用户信息不存在");
+    USER_NOT_EXIST(3000,"用户信息不存在"),
+    CURRENT_PASSWORD_ERROR(3001,"当前密码错误");
 
 
 
