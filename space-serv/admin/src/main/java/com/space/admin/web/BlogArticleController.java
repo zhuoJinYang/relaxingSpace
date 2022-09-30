@@ -7,6 +7,8 @@ import lombok.NonNull;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @RestController
 @RequestMapping("/article")
@@ -28,5 +30,10 @@ public class BlogArticleController {
     @PostMapping("/del")
     public void delete(@RequestBody @NonNull Long id){
         blogArticleService.del(id);
+    }
+
+    @GetMapping("/time")
+    public Object time(){
+        return LocalDateTime.now();
     }
 }
