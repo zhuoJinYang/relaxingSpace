@@ -60,7 +60,7 @@ public class MybatisPlusCodeGenerator {
                 )
                 .strategyConfig(builder -> builder
                         .addInclude(TABLE_NAME_LIST)
-                        .addTablePrefix("rs_forum","sys_")
+                        .addTablePrefix("rs_forum_","sys_")
                         // 实体配置构建者
                         .entityBuilder()
                         .enableLombok()
