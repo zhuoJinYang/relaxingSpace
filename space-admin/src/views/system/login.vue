@@ -142,7 +142,7 @@ export default defineComponent({
             url = '/module'
           }
           message.success('登录成功！')
-          router.push(url)
+          router.replace(url)
         }).catch(err => {
           console.log('登录错误', err)
         })

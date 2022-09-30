@@ -1,5 +1,6 @@
 package com.space.admin.web;
 
+import cn.hutool.core.util.RandomUtil;
 import cn.hutool.core.util.StrUtil;
 import com.space.db.entity.Account;
 import com.space.domain.constant.ErrorCode;
@@ -19,6 +20,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.constraints.NotBlank;
 import java.io.IOException;
+import java.util.Random;
 
 /**
  * 身份验证接口
@@ -53,7 +55,17 @@ public class AuthController {
 
     @GetMapping("/getCaptcha")
     public void getCaptcha(String uuid, HttpServletResponse response) throws IOException {
-        CaptchaUtils.getCircleCaptcha(uuid, response);
+        switch (RandomUtil.randomInt(3)){
+            case 0:
+                CaptchaUtils.getLineCaptcha(uuid, response);
+                break;
+            case 1:
+                CaptchaUtils.getCircleCaptcha(uuid, response);
+                break;
+            case 2:
+                CaptchaUtils.getShearCaptcha(uuid, response);
+                break;
+        }
     }
 
     @Getter

@@ -31,7 +31,7 @@ public class CaptchaUtils {
      * @param response 响应体
      */
     public static void getLineCaptcha(String uuid, HttpServletResponse response) throws IOException {
-        LineCaptcha captcha = CaptchaUtil.createLineCaptcha(200, 100,5,20);
+        LineCaptcha captcha = CaptchaUtil.createLineCaptcha(200, 50,5,20);
         CODE_MAP.put(uuid, captcha.getCode());
         writeResp(captcha, response);
     }
@@ -44,7 +44,7 @@ public class CaptchaUtils {
      * @param response 响应体
      */
     public static void getCircleCaptcha(String uuid, HttpServletResponse response) throws IOException {
-        CircleCaptcha captcha = CaptchaUtil.createCircleCaptcha(200, 100, 5, 20);
+        CircleCaptcha captcha = CaptchaUtil.createCircleCaptcha(200, 50, 5, 20);
         CODE_MAP.put(uuid, captcha.getCode());
         writeResp(captcha, response);
     }
@@ -57,7 +57,7 @@ public class CaptchaUtils {
      * @param response 响应体
      */
     public static void getShearCaptcha(String uuid, HttpServletResponse response) throws IOException {
-        ShearCaptcha captcha = CaptchaUtil.createShearCaptcha(200, 100, 4, 4);
+        ShearCaptcha captcha = CaptchaUtil.createShearCaptcha(200, 50, 4, 4);
         CODE_MAP.put(uuid, captcha.getCode());
         writeResp(captcha, response);
     }
