@@ -8,6 +8,9 @@ import org.mapstruct.factory.Mappers;
 
 import java.util.List;
 
+/**
+ * Do,Po转Vo
+ */
 @Mapper
 public interface VoConverter {
     VoConverter INSTANCE = Mappers.getMapper(VoConverter.class);

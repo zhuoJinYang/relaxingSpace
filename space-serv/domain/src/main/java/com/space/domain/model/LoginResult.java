@@ -6,6 +6,9 @@ import com.space.db.entity.Account;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * 登录返回数据
+ */
 @Getter
 @Setter
 public class LoginResult {

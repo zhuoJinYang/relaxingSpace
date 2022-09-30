@@ -13,6 +13,9 @@ import java.util.LinkedHashMap;
 import java.util.Objects;
 import java.util.Optional;
 
+/**
+ * 登录验证码工具
+ */
 @Slf4j
 public class CaptchaUtils {
     /**

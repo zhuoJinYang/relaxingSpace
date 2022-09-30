@@ -12,6 +12,9 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 
+/**
+ * 加密解密工具
+ */
 @Slf4j
 @Component
 public class RSAUtil {

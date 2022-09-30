@@ -6,6 +6,9 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Component;
 
+/**
+ * spring上下文工具(待完善)
+ */
 @Component
 @Slf4j
 public class SpringContextUtil implements ApplicationContextAware {

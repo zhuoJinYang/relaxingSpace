@@ -10,6 +10,9 @@ import javax.annotation.Resource;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+/**
+ * 博客接口
+ */
 @RestController
 @RequestMapping("/article")
 public class BlogArticleController {

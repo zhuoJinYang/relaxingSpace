@@ -20,6 +20,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.constraints.NotBlank;
 import java.io.IOException;
 
+/**
+ * 身份验证接口
+ */
 @Slf4j
 @RestController
 @RequestMapping("/auth")

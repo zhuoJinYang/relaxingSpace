@@ -23,6 +23,9 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URLEncoder;
 
+/**
+ * 文件操作接口
+ */
 @RequestMapping("/file")
 @RestController
 public class FileController {

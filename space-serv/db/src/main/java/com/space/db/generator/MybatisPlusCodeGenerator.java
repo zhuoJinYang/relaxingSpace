@@ -14,6 +14,9 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * mybatis-plus代码生成器
+ */
 public class MybatisPlusCodeGenerator {
     /**
      * 数据库配置
