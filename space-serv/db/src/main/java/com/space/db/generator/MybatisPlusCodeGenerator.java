@@ -30,13 +30,13 @@ public class MybatisPlusCodeGenerator {
     private static final String XML_PATH = System.getProperty("user.dir") + "/db/src/main/resources/mapper";
 
     private static final List<String> TABLE_NAME_LIST = Arrays.asList(
-//            "rs_blog_article",
-//            "rs_blog_article_detail",
-//            "rs_blog_user",
-            "sys_account"
-//            "sys_file_storage",
-//            "sys_schedule",
-//            "sys_session"
+            "rs_forum_blog",
+            "rs_forum_blog_content",
+            "sys_account",
+            "sys_file_storage",
+            "sys_schedule",
+            "sys_session",
+            "sys_user"
     );
 
     private static final DataSourceConfig.Builder DATA_SOURCE_CONFIG = new DataSourceConfig.Builder(URL,USER_NAME,PASSWORD);
@@ -60,7 +60,7 @@ public class MybatisPlusCodeGenerator {
                 )
                 .strategyConfig(builder -> builder
                         .addInclude(TABLE_NAME_LIST)
-                        .addTablePrefix("rs_","sys_")
+                        .addTablePrefix("rs_forum","sys_")
                         // 实体配置构建者
                         .entityBuilder()
                         .enableLombok()

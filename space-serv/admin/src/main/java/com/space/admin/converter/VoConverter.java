@@ -15,11 +15,11 @@ import java.util.List;
 public interface VoConverter {
     VoConverter INSTANCE = Mappers.getMapper(VoConverter.class);
 
-    BlogArticleVo convert(BlogArticle record);
-    BlogArticleVo convert(BlogArticleDto record);
+    BlogVo convert(Blog record);
+    BlogVo convert(BlogDto record);
     FileStorageVo convert(FileStorage record);
 
-    List<BlogArticleVo> convertBlogArticleList(List<BlogArticle> recordList);
-    List<BlogArticleVo> convertBlogArticleDtoList(List<BlogArticleDto> recordList);
+    List<BlogVo> convertBlogArticleList(List<Blog> recordList);
+    List<BlogVo> convertBlogArticleDtoList(List<BlogDto> recordList);
     List<AccountVo> convertAccountList(List<Account> recordList);
 }

@@ -72,7 +72,7 @@
   </div>
 </template>
 <script lang="ts">
-import {computed, defineComponent, reactive, ref} from 'vue';
+import {defineComponent, reactive, ref} from 'vue';
 import { UserOutlined, LockOutlined } from '@ant-design/icons-vue';
 import router from "@/router";
 import {apiSaveUserInfo} from "@/api/user";

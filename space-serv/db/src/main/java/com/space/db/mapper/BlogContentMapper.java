@@ -1,6 +1,6 @@
 package com.space.db.mapper;
 
-import com.space.db.entity.BlogArticleDetail;
+import com.space.db.entity.BlogContent;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
@@ -11,6 +11,6 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @author zjy
  * @since 2022-09-28
  */
-public interface BlogArticleDetailMapper extends BaseMapper<BlogArticleDetail> {
+public interface BlogContentMapper extends BaseMapper<BlogContent> {
 
 }

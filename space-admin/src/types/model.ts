@@ -4,6 +4,7 @@ export type BlogModel = {
     title: string,
     label: string[],
     summary?: string,
+    content?: string,
     preview?: string,
     collections?: string,
     likes?: string,

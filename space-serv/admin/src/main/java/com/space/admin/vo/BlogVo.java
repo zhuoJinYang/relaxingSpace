@@ -5,14 +5,16 @@ import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
-public class BlogArticleVo {
+public class BlogVo {
     @JsonSerialize(using = ToStringSerializer.class)
     private Long id;
     private Long userId;
     private String title;
-    private String label;
+    private List<String> label;
     private String summary;
     private String content;
     private Long previews;

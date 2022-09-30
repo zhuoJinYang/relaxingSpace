@@ -14,7 +14,7 @@ import javax.validation.constraints.NotBlank;
  * 账号信息接口
  */
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/account")
 public class AccountController {
 
     @Resource

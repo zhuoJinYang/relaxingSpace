@@ -1,6 +1,6 @@
 <template>
   <div class="blog">
-    <div class="blog-title"> title </div>
+    <div class="blog-title" @click="handleBlogDetail"> title </div>
     <div class="blog-content"> content </div>
     <div class="blog-bottom">
       <div class="blog-bottom-left">
@@ -29,6 +29,7 @@
 <script lang="ts">
 import {defineComponent} from 'vue'
 import {EyeOutlined, HeartOutlined, MessageOutlined} from "@ant-design/icons-vue";
+import router from "@/router";
 
 export default defineComponent({
   components:{
@@ -37,7 +38,12 @@ export default defineComponent({
     MessageOutlined
   },
   setup() {
-    return {}
+    const handleBlogDetail = () => {
+      router.push('/forum/blogDetail')
+    }
+    return {
+      handleBlogDetail
+    }
   }
 })
 </script>
@@ -51,6 +57,7 @@ export default defineComponent({
   & .blog-title{
     font-size: 25px;
     font-weight: bold;
+    cursor: pointer;
   }
   & .blog-content{
     font-size: 20px;

@@ -17,5 +17,9 @@ export const forumModuleRoutes :  Array<RouteRecordRaw> = [
     {
         path:"/forum/editBlog",
         component: () => import('@/views/modules/forum/EditBlog.vue')
+    },
+    {
+        path:"/forum/blogDetail",
+        component: () => import('@/views/modules/forum/BlogDetail.vue')
     }
 ]

@@ -18,61 +18,31 @@ import lombok.experimental.Accessors;
  * </p>
  *
  * @author zjy
- * @since 2022-09-28
+ * @since 2022-09-30
  */
 @Getter
 @Setter
 @Accessors(chain = true)
-@TableName("rs_blog_article")
-public class BlogArticle implements Serializable {
+@TableName("rs_forum_blog_content")
+public class BlogContent implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     /**
-     * 博客id
+     * 博客详情id
      */
     @TableId(value = "id", type = IdType.ASSIGN_ID)
     private Long id;
 
     /**
-     * 博客发表者
+     * 博客id
      */
-    private Long userId;
+    private Long blogId;
 
     /**
-     * 博客标题
+     * 博客内容
      */
-    private String title;
-
-    /**
-     * 博客标签
-     */
-    private String label;
-
-    /**
-     * 博客概述
-     */
-    private String summary;
-
-    /**
-     * 浏览量
-     */
-    private Long previews;
-
-    /**
-     * 收藏量
-     */
-    private Long collections;
-
-    /**
-     * 点赞量
-     */
-    private Long likes;
-
-    /**
-     * 踩量
-     */
-    private Long dislikes;
+    private String context;
 
     /**
      * 逻辑删除标识

@@ -1,5 +1,7 @@
 package com.space.admin.converter;
 
+import com.space.admin.vo.BlogVo;
+import com.space.db.entity.Blog;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
@@ -10,4 +12,5 @@ import org.mapstruct.factory.Mappers;
 public interface EntityConverter {
     EntityConverter INSTANCE = Mappers.getMapper(EntityConverter.class);
 
+    Blog convert(BlogVo record);
 }

@@ -8,6 +8,8 @@ import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+
+import com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
@@ -18,31 +20,62 @@ import lombok.experimental.Accessors;
  * </p>
  *
  * @author zjy
- * @since 2022-09-28
+ * @since 2022-09-30
  */
 @Getter
 @Setter
 @Accessors(chain = true)
-@TableName("rs_blog_article_detail")
-public class BlogArticleDetail implements Serializable {
+@TableName(value = "rs_forum_blog", autoResultMap = true)
+public class Blog implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     /**
-     * 博客详情id
+     * 博客id
      */
     @TableId(value = "id", type = IdType.ASSIGN_ID)
     private Long id;
 
     /**
-     * 博客id
+     * 博客发表者
      */
-    private Long articleId;
+    private Long userId;
 
     /**
-     * 博客内容
+     * 博客标题
      */
-    private String context;
+    private String title;
+
+    /**
+     * 博客标签
+     */
+    @TableField(typeHandler = JacksonTypeHandler.class)
+    private String[] label;
+
+    /**
+     * 博客概述
+     */
+    private String summary;
+
+    /**
+     * 浏览量
+     */
+    private Long previews;
+
+    /**
+     * 收藏量
+     */
+    private Long collections;
+
+    /**
+     * 点赞量
+     */
+    private Long likes;
+
+    /**
+     * 踩量
+     */
+    private Long dislikes;
 
     /**
      * 逻辑删除标识

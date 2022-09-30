@@ -8,7 +8,7 @@ import {encrypt} from "@/util/security";
 // 定义的defineStore()，并且它需要一个唯一的名称，common名称抽离出去作为第一个参数传递
 export const useUserStore = defineStore('user',{
     state: () => ({
-        token: '123',
+        token: '',
         userId: '',
         username: '',
         phone: '',

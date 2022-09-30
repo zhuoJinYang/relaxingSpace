@@ -62,6 +62,8 @@ import {defineComponent, onBeforeUnmount, onMounted, reactive, ref, shallowRef} 
 import '@wangeditor/editor/dist/css/style.css' // 引入 富文本css
 import { Editor, Toolbar } from '@wangeditor/editor-for-vue'
 import {BlogModel} from "@/types/model";
+import {apiSaveBlogList} from "@/api/forum/blog";
+import {message} from "ant-design-vue";
 
 export default defineComponent({
   components:{
@@ -69,10 +71,13 @@ export default defineComponent({
     Toolbar
   },
   setup() {
-    const blogData = reactive<BlogModel>({id:'',userId:'',title:'',label:[]})
+    const blogData = reactive<BlogModel>({id:'',userId:'1575724450385186817',title:'',label:[],content:''})
 
     const publish = () => {
-      console.log('publish')
+      console.log(blogData)
+      apiSaveBlogList({...blogData,content: valueHtml.value}).then(() => {
+        message.success("发布成功！")
+      })
     }
 
     // 编辑器实例，必须用 shallowRef
