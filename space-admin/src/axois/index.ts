@@ -24,7 +24,6 @@ axiosInstance.interceptors.request.use((config:AxiosRequestConfig): AxiosRequest
  * 服务器响应后拦截
  */
 axiosInstance.interceptors.response.use((response:AxiosResponse): AxiosResponse | Promise<AxiosResponse> => {
-    window.console.log('发起了请求:',response);
     if (response.status !== 200){
         return Promise.reject(response)
     }

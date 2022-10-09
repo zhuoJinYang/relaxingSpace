@@ -42,7 +42,7 @@ public class BlogContent implements Serializable {
     /**
      * 博客内容
      */
-    private String context;
+    private String content;
 
     /**
      * 逻辑删除标识

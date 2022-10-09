@@ -13,5 +13,6 @@ public class FileStorageVo {
     private String name;
     private String type;
     private String suffix;
+    @JsonSerialize(using = ToStringSerializer.class)
     private Long size;
 }

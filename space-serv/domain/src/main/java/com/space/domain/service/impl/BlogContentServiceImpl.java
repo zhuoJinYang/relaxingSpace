@@ -2,6 +2,7 @@ package com.space.domain.service.impl;
 
 import cn.hutool.core.util.ObjectUtil;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.space.db.entity.BlogContent;
 import com.space.db.mapper.BlogContentMapper;
 import com.space.domain.service.BlogContentService;

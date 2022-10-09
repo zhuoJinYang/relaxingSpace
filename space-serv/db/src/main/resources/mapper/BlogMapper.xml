@@ -2,4 +2,31 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.space.db.mapper.BlogMapper">
 
+    <resultMap id="BlogDetail" type="com.space.db.dto.BlogDto">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="user_id" property="userId" jdbcType="BIGINT"/>
+        <result column="title" property="title" jdbcType="VARCHAR"/>
+        <result column="label" property="label"
+            typeHandler="com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler"/>
+        <result column="summary" property="summary" jdbcType="VARCHAR"/>
+        <result column="previews" property="previews" jdbcType="BIGINT"/>
+        <result column="collections" property="collections" jdbcType="BIGINT"/>
+        <result column="likes" property="likes" jdbcType="BIGINT"/>
+        <result column="dislikes" property="dislikes" jdbcType="BIGINT"/>
+        <result column="content" property="content" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <select id="getDetailById" resultMap="BlogDetail">
+        SELECT
+            b.*,
+            bc.content
+        FROM
+            rs_forum_blog b,
+            rs_forum_blog_content bc
+        WHERE
+            b.id = bc.blog_id
+          and b.deleted_flag = 0
+          and bc.deleted_flag = 0
+          and b.id = #{id}
+    </select>
 </mapper>

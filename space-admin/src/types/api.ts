@@ -7,6 +7,14 @@ export interface ApiResult<T = unknown>{
     data?: T
 }
 
+export interface ApiListResult<T = unknown> extends ApiResult{
+    page: number,
+    pages: number,
+    size: number,
+    total: number,
+    list?: T
+}
+
 export type AxiosResult<T=ApiResult> = Promise<AxiosResponse<T>>
 
 export interface LoginSuccessData extends ApiResult {
@@ -22,12 +30,25 @@ export interface UserSuccessData extends ApiResult{
     email?:string
 }
 
-export interface BlogSucessData extends ApiResult{
+export interface BlogSucessData extends ApiListResult{
     id: string,
     userId?: string,
     title: string,
     label: string,
     summary?: string,
+    preview?: string,
+    collections?: string,
+    likes?: string,
+    dislikes?: string,
+}
+
+export interface BlogDetailData extends ApiResult{
+    id: string,
+    userId?: string,
+    title: string,
+    label: string[],
+    summary?: string,
+    content: string,
     preview?: string,
     collections?: string,
     likes?: string,

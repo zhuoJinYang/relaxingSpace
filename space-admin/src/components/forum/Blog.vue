@@ -1,24 +1,24 @@
 <template>
   <div class="blog">
-    <div class="blog-title" @click="handleBlogDetail"> title </div>
-    <div class="blog-content"> content </div>
+    <div class="blog-title" @click="handleBlogDetail(blog.id)"> {{ blog.title }} </div>
+    <div class="blog-content"> {{ blog.summary || '' }} </div>
     <div class="blog-bottom">
       <div class="blog-bottom-left">
         <a-space>
           <div class="blog-preview">
-            <eye-outlined /> num
+            <eye-outlined /> {{ blog.preview || 0 }}
           </div>
           <div class="blog-like">
-            <heart-outlined /> num
+            <heart-outlined /> {{ blog.likes || 0 }}
           </div>
           <div class="blog-comment">
-            <message-outlined /> num
+            <message-outlined /> {{ blog.dislikes || 0 }}
           </div>
         </a-space>
       </div>
       <div class="blog-bottom-right">
         <a-space>
-          <div class="blog-owner"> userName </div>
+          <div class="blog-owner"> {{ blog.userId }} </div>
           <div class="blog-publish-time"> publishTime </div>
         </a-space>
       </div>
@@ -37,9 +37,10 @@ export default defineComponent({
     EyeOutlined,
     MessageOutlined
   },
+  props:['blog'],
   setup() {
-    const handleBlogDetail = () => {
-      router.push('/forum/blogDetail')
+    const handleBlogDetail = (blogId:string) => {
+      router.push('/forum/blogDetail/'+blogId)
     }
     return {
       handleBlogDetail

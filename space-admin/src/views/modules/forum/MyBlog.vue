@@ -6,9 +6,11 @@
       <div class="sort-like">按点赞量排序<swap-outlined :rotate="90"/></div>
     </div>
     <div class="myBlog">
-      <Blog/>
-      <Blog/>
-      <Blog/>
+      <Blog
+          v-for="blog in blogList"
+          :key="blog.id"
+          :blog="blog"
+      />
     </div>
   </div>
 </template>
@@ -33,9 +35,11 @@
 </style>
 
 <script lang="ts">
-import {defineComponent, ref} from 'vue'
+import {defineComponent, onMounted, ref} from 'vue'
 import Blog from "@/components/forum/Blog.vue";
 import {SwapOutlined} from "@ant-design/icons-vue";
+import {BlogModel} from "@/types/model";
+import {apiGetBlogList} from "@/api/forum/blog";
 
 export default defineComponent({
   components:{
@@ -44,7 +48,20 @@ export default defineComponent({
   },
   setup() {
     const searchKeyContent = ref<string>('')
+    let blogList = ref<BlogModel[]>([])
+
+    function getBlogData(){
+      apiGetBlogList().then(res => {
+        blogList.value = res.data.list as BlogModel[]
+        console.log('blogList',blogList);
+      })
+    }
+
+    onMounted(() => {
+      getBlogData()
+    })
     return {
+      blogList,
       searchKeyContent
     }
   }

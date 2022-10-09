@@ -63,4 +63,8 @@ public class PageResult<T> {
     public static <E> PageResult<E> parse(IPage<?> page,List<E> list){
         return new PageResult<>(page.getCurrent(), page.getSize(), page.getPages(), page.getTotal(),list);
     }
+
+    public static <E> PageResult<E> parse(PageResult<?> pageResult,List<E> list){
+        return new PageResult<>(pageResult.getPage(), pageResult.getSize(), pageResult.getPages(), pageResult.getTotal(),list);
+    }
 }

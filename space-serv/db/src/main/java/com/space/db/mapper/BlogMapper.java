@@ -1,7 +1,9 @@
 package com.space.db.mapper;
 
-import com.space.db.entity.Blog;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.space.db.dto.BlogDto;
+import com.space.db.entity.Blog;
+import org.apache.ibatis.annotations.Select;
 
 /**
  * <p>
@@ -13,4 +15,8 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface BlogMapper extends BaseMapper<Blog> {
 
+    /**
+     * 获取博客详情信息
+     */
+    BlogDto getDetailById(Long id);
 }

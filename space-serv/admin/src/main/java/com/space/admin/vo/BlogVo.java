@@ -12,13 +12,18 @@ import java.util.List;
 public class BlogVo {
     @JsonSerialize(using = ToStringSerializer.class)
     private Long id;
+    @JsonSerialize(using = ToStringSerializer.class)
     private Long userId;
     private String title;
     private List<String> label;
     private String summary;
     private String content;
+    @JsonSerialize(using = ToStringSerializer.class)
     private Long previews;
+    @JsonSerialize(using = ToStringSerializer.class)
     private Long collections;
+    @JsonSerialize(using = ToStringSerializer.class)
     private Long likes;
+    @JsonSerialize(using = ToStringSerializer.class)
     private Long dislikes;
 }

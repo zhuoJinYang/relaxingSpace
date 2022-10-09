@@ -4,6 +4,7 @@ import com.space.admin.vo.*;
 import com.space.db.entity.*;
 import com.space.db.dto.*;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
 import java.util.List;
@@ -16,6 +17,8 @@ public interface VoConverter {
     VoConverter INSTANCE = Mappers.getMapper(VoConverter.class);
 
     BlogVo convert(Blog record);
+    @Mapping(target = "content", source = "content")
+    @Mapping(target = "label", source = "label")
     BlogVo convert(BlogDto record);
     FileStorageVo convert(FileStorage record);
 
