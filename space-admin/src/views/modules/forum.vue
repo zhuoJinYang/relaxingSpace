@@ -8,7 +8,7 @@
     <a-layout-content>
       <div style="display: flex">
         <router-view v-slot="{ Component }">
-          <keep-alive>
+          <keep-alive :include="includeList">
             <component :is="Component" />
           </keep-alive>
         </router-view>
@@ -20,13 +20,17 @@
 <script lang="ts">
 import {defineComponent} from 'vue'
 import ForumHeader from './forum/layout/header.vue'
+import {useKeepAliveStore} from "@/store/keepAlive";
 
 export default defineComponent({
   components:{
     ForumHeader,
   },
   setup() {
+    const keepAliveStore = useKeepAliveStore()
+    const includeList = keepAliveStore.ForumIncludeList
     return {
+      includeList
     }
   }
 })
