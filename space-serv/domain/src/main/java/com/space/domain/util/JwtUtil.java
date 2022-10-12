@@ -27,6 +27,13 @@ public class JwtUtil {
         return create("admin",userInfo.getId());
     }
 
+    /**
+     * 校验Token是否有效
+     */
+    public static boolean verifyToken(String token) {
+        return JWTUtil.verify(token, JWT_SIGNER);
+    }
+
     private static String create(String client,Long uid){
         Map<String,Object> headers = new HashMap<>();
         headers.put("typ","JWT");
