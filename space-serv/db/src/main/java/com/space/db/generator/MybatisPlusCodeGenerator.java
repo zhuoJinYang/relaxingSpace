@@ -32,6 +32,15 @@ public class MybatisPlusCodeGenerator {
     private static final List<String> TABLE_NAME_LIST = Arrays.asList(
             "rs_forum_blog",
             "rs_forum_blog_content",
+
+            "rs_pokemon_attribute",
+            "rs_pokemon_character",
+            "rs_pokemon_egg_group",
+            "rs_pokemon_poke_dex",
+            "rs_pokemon_poke_skill",
+            "rs_pokemon_pokemon",
+            "rs_pokemon_skill",
+
             "sys_account",
             "sys_file_storage",
             "sys_schedule",
@@ -60,7 +69,7 @@ public class MybatisPlusCodeGenerator {
                 )
                 .strategyConfig(builder -> builder
                         .addInclude(TABLE_NAME_LIST)
-                        .addTablePrefix("rs_forum_","sys_")
+                        .addTablePrefix("rs_forum_","sys_","rs_pokemon_")
                         // 实体配置构建者
                         .entityBuilder()
                         .enableLombok()

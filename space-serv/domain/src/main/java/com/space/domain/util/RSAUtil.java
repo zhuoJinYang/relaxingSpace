@@ -54,14 +54,13 @@ public class RSAUtil {
      * 解密
      */
     public static String passwordDecrypt(String encryptPassword){
-        log.info("encryptPassword密码为：--"+encryptPassword);
         if (StrUtil.isBlank(encryptPassword)) {
             throw new ServiceException(ErrorCode.PASSWORD_NULL);
         }
         try {
             return PASSWORD_RSA.decryptStr(encryptPassword,KeyType.PrivateKey, CharsetUtil.CHARSET_UTF_8);
         } catch (RuntimeException e){
-            throw new ServiceException(ErrorCode.PASSWORD_NULL);
+            throw new ServiceException(ErrorCode.PASSWORD_DECRYPT_ERROR);
         }
     }
 }

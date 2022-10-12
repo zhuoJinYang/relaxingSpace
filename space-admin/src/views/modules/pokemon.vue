@@ -15,7 +15,7 @@
       <a-layout-content class="container">
         <div class="main__container">
           <router-view v-slot="{ Component }">
-            <keep-alive>
+            <keep-alive :include="includeList">
               <component :is="Component" />
             </keep-alive>
           </router-view>
@@ -29,6 +29,7 @@
 import {defineComponent,ref} from 'vue'
 import PokemonMenu from './pokemon/layout/menu.vue'
 import PokemonHeader from './pokemon/layout/header.vue'
+import {useKeepAliveStore} from "@/store/keepAlive";
 
 export default defineComponent({
   components:{
@@ -38,8 +39,11 @@ export default defineComponent({
   setup() {
     const collapsed = ref<boolean>(false)
 
+    const keepAliveStore = useKeepAliveStore()
+    const includeList = keepAliveStore.PokeDexIncludeList
     return {
       collapsed,
+      includeList
     }
   }
 })

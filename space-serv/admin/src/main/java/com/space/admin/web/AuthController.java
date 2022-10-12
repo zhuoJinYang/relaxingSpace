@@ -2,7 +2,6 @@ package com.space.admin.web;
 
 import cn.hutool.core.util.RandomUtil;
 import cn.hutool.core.util.StrUtil;
-import com.space.db.entity.Account;
 import com.space.domain.constant.ErrorCode;
 import com.space.domain.exception.ServiceException;
 import com.space.domain.model.LoginResult;
@@ -20,7 +19,6 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.constraints.NotBlank;
 import java.io.IOException;
-import java.util.Random;
 
 /**
  * 身份验证接口
@@ -33,11 +31,17 @@ public class AuthController {
     @Resource
     AuthService authService;
 
+    /**
+     * 获取公钥
+     */
     @GetMapping("/password-secret-key")
     public String getPasswordRsaPublicKey(){
         return RSAUtil.getPasswordRsaPublicKey();
     }
 
+    /**
+     * 登录
+     */
     @PostMapping("/login")
     public LoginResult login(@Validated @RequestBody LoginParam account){
         if (!CaptchaUtils.verify(account.getUuid(),account.getCaptcha())){
@@ -46,6 +50,9 @@ public class AuthController {
         return authService.login(account.getUsername(),RSAUtil.passwordDecrypt(account.getPassword()));
     }
 
+    /**
+     * 登出
+     */
     @PostMapping("/logout")
     public void logout(@RequestHeader(name = HttpHeaders.AUTHORIZATION, required = false) String token){
         if (StrUtil.isNotBlank(token)){
@@ -53,6 +60,9 @@ public class AuthController {
         }
     }
 
+    /**
+     * 获取验证码
+     */
     @GetMapping("/getCaptcha")
     public void getCaptcha(String uuid, HttpServletResponse response) throws IOException {
         switch (RandomUtil.randomInt(3)){

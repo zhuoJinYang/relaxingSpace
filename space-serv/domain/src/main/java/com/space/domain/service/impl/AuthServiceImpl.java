@@ -2,18 +2,19 @@ package com.space.domain.service.impl;
 
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
+import cn.hutool.crypto.SecureUtil;
 import com.space.db.entity.Account;
 import com.space.db.entity.Session;
+import com.space.domain.constant.Constant;
 import com.space.domain.constant.ErrorCode;
-import com.space.domain.constant.RedisOption;
 import com.space.domain.exception.ServiceException;
 import com.space.domain.model.LoginResult;
 import com.space.domain.service.AccountService;
 import com.space.domain.service.AuthService;
 import com.space.domain.service.SessionService;
-import com.space.domain.util.RedisUtil;
 import lombok.NonNull;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 
@@ -28,13 +29,17 @@ public class AuthServiceImpl implements AuthService {
 //    private RedisUtil redisUtil;
 
     @Override
+    @Transactional(rollbackFor = RuntimeException.class)
     public LoginResult login(@NonNull String username, @NonNull String password) {
         Account account = accountService.getByUsername(username);
         if (ObjectUtil.isNull(account)){
             throw new ServiceException(ErrorCode.USERNAME_PASSWORD_ERROR);
         }
-        if (!StrUtil.equals(account.getPassword(),password)){
+        if (!StrUtil.equals(account.getPassword(), SecureUtil.sha256(password))){
             throw new ServiceException(ErrorCode.USERNAME_PASSWORD_ERROR);
+        }
+        if (!StrUtil.equals(account.getStatus(), Constant.YES)) {
+            throw new ServiceException(ErrorCode.ACCOUNT_UNAVAILABLE);
         }
 
         // 根据账号和角色信息，构建会话信息

@@ -5,7 +5,7 @@
       <ForumHeader/>
     </a-layout-header>
     <!-- 内容 -->
-    <a-layout-content>
+    <a-layout-content style="padding: 8px;overflow-y: auto;overflow-x: hidden;">
       <div style="display: flex">
         <router-view v-slot="{ Component }">
           <keep-alive :include="includeList">

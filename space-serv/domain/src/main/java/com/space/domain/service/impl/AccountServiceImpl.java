@@ -2,7 +2,7 @@ package com.space.domain.service.impl;
 
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import cn.hutool.crypto.SecureUtil;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.space.db.entity.Account;
@@ -24,6 +24,14 @@ public class AccountServiceImpl implements AccountService {
     private AccountMapper accountMapper;
 
     @Override
+    public boolean isUsernameExisted(@NonNull String username) {
+        Long count = accountMapper.selectCount(
+                Wrappers.<Account>lambdaQuery()
+                        .eq(Account::getUsername, username));
+        return count > 0;
+    }
+
+    @Override
     public Account getByUsername(String username) {
         return accountMapper.selectOne(
                 Wrappers.<Account> lambdaQuery().eq(Account::getUsername,username)
@@ -38,6 +46,12 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public void save(@NonNull Account account) {
         if (ObjectUtil.isEmpty(account.getId())){
+            // 添加新账号前,校验该账号是否存在
+            if (this.isUsernameExisted(account.getUsername())){
+                throw new ServiceException(ErrorCode.ACCOUNT_USERNAME_EXISTED);
+            }
+            account.setPassword(SecureUtil.sha256(account.getPassword()));
+            account.setStatus(Constant.YES);
             accountMapper.insert(account);
         }else {
             accountMapper.updateById(account);
@@ -62,10 +76,10 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public void changePassword(@NonNull Long id, @NonNull String password, @NonNull String newPassword) {
         Account account = accountMapper.selectById(id);
-        if (!StrUtil.equals(account.getPassword(),password)){
+        if (!StrUtil.equals(account.getPassword(),SecureUtil.sha256(password))){
             throw new ServiceException(ErrorCode.CURRENT_PASSWORD_ERROR);
         }
-        account.setPassword(newPassword);
+        account.setPassword(SecureUtil.sha256(newPassword));
         accountMapper.updateById(account);
     }
 }

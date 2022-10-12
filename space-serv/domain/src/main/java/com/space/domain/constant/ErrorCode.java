@@ -33,6 +33,8 @@ public enum ErrorCode {
     INVALID_TOKEN(2000,"无效的登录凭证"),
     USERNAME_PASSWORD_ERROR(2001,"用户名或密码错误"),
     PASSWORD_NULL(2002,"密码不能为空"),
+    ACCOUNT_UNAVAILABLE(2003,"账号不可用"),
+    ACCOUNT_USERNAME_EXISTED(2004,"账号已存在"),
     PASSWORD_DECRYPT_ERROR(2099,"密码解密错误"),
     NO_PERMISSION(2100,"没有访问或操作权限"),
 

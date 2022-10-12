@@ -36,6 +36,9 @@ public class FileController {
     @Resource
     private FileStorageService fileStorageService;
 
+    /**
+     * 根据文件id预览文件
+     */
     @GetMapping("/preview")
     public void preview(@RequestParam Long key, HttpServletResponse response){
         FileStorage storage = fileStorageService.getById(key);
@@ -63,6 +66,9 @@ public class FileController {
         }
     }
 
+    /**
+     * 根据文件id下载文件
+     */
     @GetMapping("/download")
     public void download(@RequestParam Long key, HttpServletResponse response){
         FileStorage storage = fileStorageService.getById(key);
@@ -95,6 +101,9 @@ public class FileController {
         }
     }
 
+    /**
+     * 上传文件
+     */
     @PostMapping("/upload")
     public Object upload(@RequestParam(name = "file") MultipartFile uploadFile){
         // 获取文件名
