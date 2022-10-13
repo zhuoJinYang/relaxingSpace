@@ -5,6 +5,8 @@ import com.space.db.entity.Blog;
 import com.space.domain.model.PageResult;
 import lombok.NonNull;
 
+import java.util.List;
+
 public interface BlogService {
 
     /**
@@ -33,4 +35,9 @@ public interface BlogService {
      * @return 博客信息
      */
     BlogDto getDetail(@NonNull Long id);
+
+    /**
+     * 获取热点数据
+     */
+    List<Blog> hot();
 }

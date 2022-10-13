@@ -35,8 +35,11 @@ public class MybatisPlusCodeGenerator {
 
             "rs_pokemon_attribute",
             "rs_pokemon_character",
+            "rs_pokemon_characteristic",
             "rs_pokemon_egg_group",
+            "rs_pokemon_goods",
             "rs_pokemon_poke_dex",
+            "rs_pokemon_poke_egg",
             "rs_pokemon_poke_skill",
             "rs_pokemon_pokemon",
             "rs_pokemon_skill",

@@ -54,4 +54,9 @@ public class BlogServiceImpl implements BlogService {
     public BlogDto getDetail(@NonNull Long id) {
         return blogMapper.getDetailById(id);
     }
+
+    @Override
+    public List<Blog> hot() {
+         return blogMapper.selectList(Wrappers.lambdaQuery(Blog.class).orderByDesc(Blog::getPreviews).last("limit 5"));
+    }
 }

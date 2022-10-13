@@ -37,6 +37,15 @@ public class BlogController {
     }
 
     /**
+     * TODO 2022/10/13 之后引入redis来做热点数据缓存
+     * 获取热点数据
+     */
+    @GetMapping("/hot")
+    public Object hot(){
+        return blogService.hot();
+    }
+
+    /**
      * 获取博客详情信息
      */
     @GetMapping("/detail")
