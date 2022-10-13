@@ -9,8 +9,8 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 public enum RedisOption {
-    TOKEN("token:","登录凭证",60*60L),
-    ACCOUNT_TOKEN("account:","账号凭证",60*60L);
+    TOKEN("login:token:","登录凭证",60*60L),
+    ACCOUNT_TOKEN("login:account:","账号凭证",60*60L);
 
     /**
      * Redis Key 或 Key 的前缀
