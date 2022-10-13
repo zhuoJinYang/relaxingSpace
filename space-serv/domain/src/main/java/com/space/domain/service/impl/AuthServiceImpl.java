@@ -7,11 +7,13 @@ import com.space.db.entity.Account;
 import com.space.db.entity.Session;
 import com.space.domain.constant.Constant;
 import com.space.domain.constant.ErrorCode;
+import com.space.domain.constant.RedisOption;
 import com.space.domain.exception.ServiceException;
 import com.space.domain.model.LoginResult;
 import com.space.domain.service.AccountService;
 import com.space.domain.service.AuthService;
 import com.space.domain.service.SessionService;
+import com.space.domain.util.RedisUtil;
 import lombok.NonNull;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,8 +27,8 @@ public class AuthServiceImpl implements AuthService {
     private AccountService accountService;
     @Resource
     private SessionService sessionService;
-//    @Resource
-//    private RedisUtil redisUtil;
+    @Resource
+    private RedisUtil redisUtil;
 
     @Override
     @Transactional(rollbackFor = RuntimeException.class)
@@ -46,9 +48,9 @@ public class AuthServiceImpl implements AuthService {
         Session session = sessionService.createByUserInfo(account);
         sessionService.save(session);
         //存入redis
-//        redisUtil.set(RedisOption.TOKEN.getKey(session.getToken()), session, RedisOption.TOKEN.getTimeout());
-//        redisUtil.set(RedisOption.ACCOUNT_TOKEN.getKey(session.getLoginUserName() + ":" + session.getToken()),
-//                session, RedisOption.ACCOUNT_TOKEN.getTimeout());
+        redisUtil.set(RedisOption.TOKEN.getKey(session.getToken()), session, RedisOption.TOKEN.getTimeout());
+        redisUtil.set(RedisOption.ACCOUNT_TOKEN.getKey(session.getLoginUserName() + ":" + session.getToken()),
+                session, RedisOption.ACCOUNT_TOKEN.getTimeout());
 
         return new LoginResult(session.getToken(),account);
     }
