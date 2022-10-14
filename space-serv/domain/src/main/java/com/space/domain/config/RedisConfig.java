@@ -8,9 +8,15 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.RedisSerializer;
 
+/**
+ * 配置redis
+ */
 @Configuration
 public class RedisConfig {
 
+    /**
+     * 修改redis序列化方式
+     */
     @Bean
     public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory redisConnectionFactory) {
         // 将template 泛型设置为 <String, Object>

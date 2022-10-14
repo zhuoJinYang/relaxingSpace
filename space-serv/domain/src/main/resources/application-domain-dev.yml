@@ -3,6 +3,12 @@ spring:
     host: 192.168.138.128
     port: 6379
     password: "666666"
+    lettuce:
+      pool:
+        max-active: 8
+        max-idle: 8
+        min-idle: 0
+        max-wait: 100ms
 
 custom:
   security:

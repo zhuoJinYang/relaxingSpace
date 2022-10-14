@@ -77,7 +77,6 @@ public class JacksonUtil {
 
     private JacksonUtil() {}
 
-    // TODO 下面的看不懂,之后再去理解
     public static ObjectNode createObjectNode() {
         return mapper.createObjectNode();
     }
