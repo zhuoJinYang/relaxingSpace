@@ -1,8 +1,10 @@
 package com.space.domain.service.impl;
 
 import cn.hutool.core.util.ObjectUtil;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.space.db.dto.BlogDto;
 import com.space.db.entity.Blog;
 import com.space.db.entity.BlogContent;
@@ -16,11 +18,10 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @Slf4j
-public class BlogServiceImpl implements BlogService {
+public class BlogServiceImpl extends ServiceImpl<BlogMapper,Blog> implements BlogService {
 
     @Resource
     private BlogContentService blogContentService;
@@ -30,24 +31,19 @@ public class BlogServiceImpl implements BlogService {
 
     @Override
     public PageResult<Blog> list(Integer page) {
-        Page<Blog> blogPage = blogMapper.selectPage(new Page<>(page, PageResult.DEFAULT_PAGE_SIZE), Wrappers.emptyWrapper());
+        Page<Blog> blogPage = page(new Page<>(page, PageResult.DEFAULT_PAGE_SIZE), Wrappers.emptyWrapper());
         return PageResult.convert(blogPage);
     }
 
     @Override
     public void save(@NonNull Blog blog, @NonNull String content) {
         if (ObjectUtil.isEmpty(blog.getId())){
-            blogMapper.insert(blog);
+            save(blog);
             blogContentService.save(new BlogContent().setBlogId(blog.getId()).setContent(content));
         }else {
-            blogMapper.updateById(blog);
-            blogContentService.updateByBlogId(blog.getId(),new BlogContent().setContent(content));
+            updateById(blog);
+            blogContentService.update(new UpdateWrapper<BlogContent>().eq("blog_id",blog.getId()).set("content",content));
         }
-    }
-
-    @Override
-    public void del(@NonNull Long id) {
-        blogMapper.deleteById(id);
     }
 
     @Override
@@ -57,6 +53,6 @@ public class BlogServiceImpl implements BlogService {
 
     @Override
     public List<Blog> hot() {
-         return blogMapper.selectList(Wrappers.lambdaQuery(Blog.class).orderByDesc(Blog::getPreviews).last("limit 5"));
+        return list(Wrappers.lambdaQuery(Blog.class).orderByDesc(Blog::getPreviews).last("limit 5"));
     }
 }

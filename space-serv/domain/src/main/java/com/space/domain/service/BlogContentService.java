@@ -1,10 +1,8 @@
 package com.space.domain.service;
 
+import com.baomidou.mybatisplus.extension.service.IService;
 import com.space.db.entity.BlogContent;
-import lombok.NonNull;
 
-public interface BlogContentService {
-    void save(@NonNull BlogContent blogContext);
+public interface BlogContentService extends IService<BlogContent> {
 
-    void updateByBlogId(@NonNull Long blogId,@NonNull BlogContent blogContext);
 }

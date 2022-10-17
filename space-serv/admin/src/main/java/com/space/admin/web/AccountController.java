@@ -33,7 +33,7 @@ public class AccountController {
      */
     @PostMapping("/save")
     public void add(@RequestBody Account account){
-        accountService.save(account);
+        accountService.saveAccount(account);
     }
 
     /**
@@ -41,7 +41,7 @@ public class AccountController {
      */
     @PostMapping("/del")
     public void del(@RequestBody Long id){
-        accountService.del(id);
+        accountService.removeById(id);
     }
 
     /**

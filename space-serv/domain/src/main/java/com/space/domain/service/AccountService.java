@@ -1,11 +1,10 @@
 package com.space.domain.service;
 
+import com.baomidou.mybatisplus.extension.service.IService;
 import com.space.db.entity.Account;
 import lombok.NonNull;
 
-import java.util.List;
-
-public interface AccountService {
+public interface AccountService extends IService<Account> {
 
     /**
      * 判断账号是否存在
@@ -24,25 +23,11 @@ public interface AccountService {
     Account getByUsername(String username);
 
     /**
-     * 获取账号列表
-     *
-     * @return 账号列表
-     */
-    List<Account> list();
-
-    /**
      * 保存账号信息
      *
      * @param user 账号信息
      */
-    void save(@NonNull Account user);
-
-    /**
-     * 根据帐号id删除账号信息
-     *
-     * @param id 帐号id
-     */
-    void del(@NonNull Long id);
+    void saveAccount(@NonNull Account user);
 
     /**
      * 根据账号id启用账号

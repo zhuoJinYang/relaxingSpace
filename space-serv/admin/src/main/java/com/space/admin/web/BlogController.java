@@ -69,6 +69,6 @@ public class BlogController {
      */
     @PostMapping("/del")
     public void delete(@RequestBody @NonNull Long id){
-        blogService.del(id);
+        blogService.removeById(id);
     }
 }

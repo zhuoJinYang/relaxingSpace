@@ -1,12 +1,7 @@
 package com.space.domain.service;
 
+import com.baomidou.mybatisplus.extension.service.IService;
 import com.space.db.entity.User;
-import lombok.NonNull;
 
-import java.util.List;
-
-public interface UserService {
-    List<User> list();
-
-    void save(@NonNull User userInfo);
+public interface UserService extends IService<User> {
 }

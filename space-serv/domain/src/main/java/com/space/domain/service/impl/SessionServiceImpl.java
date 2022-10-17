@@ -1,5 +1,6 @@
 package com.space.domain.service.impl;
 
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.space.db.entity.Account;
 import com.space.db.entity.Session;
 import com.space.db.mapper.SessionMapper;
@@ -15,7 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 
 @Service
-public class SessionServiceImpl implements SessionService {
+public class SessionServiceImpl extends ServiceImpl<SessionMapper,Session> implements SessionService {
 
     @Resource
     private SessionMapper sessionMapper;
@@ -33,11 +34,4 @@ public class SessionServiceImpl implements SessionService {
         return session;
     }
 
-    @Override
-    public void save(Session session) {
-        int insert = sessionMapper.insert(session);
-        if (insert <= 0){
-            throw new ServiceException(ErrorCode.DATABASE_INSERT_FAIL);
-        }
-    }
 }
