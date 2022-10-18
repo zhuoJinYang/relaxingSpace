@@ -20,9 +20,11 @@ public enum ErrorCode {
     ARGUMENT_VALID_ERROR(1000, "参数校验异常"),
     ARGUMENT_NOT_EXIST(1001, "无法获取请求参数"),
     NO_MATCH_ENUM_ITEM(1002,"没有匹配的枚举数据"),
+
     DATABASE_INSERT_FAIL(1100, "新增数据失败"),
     DATABASE_UPDATE_FAIL(1101, "更新数据失败"),
     DATABASE_DELETE_FAIL(1102, "删除数据失败"),
+    DATABASE_NULL_DATA(1111,"查询数据无结果"),
 
     FILE_SAVE_FAIL(1200,"文件上传保存失败"),
     FILE_NOT_EXIT(1202,"文件不存在"),
@@ -36,7 +38,10 @@ public enum ErrorCode {
     ACCOUNT_UNAVAILABLE(2003,"账号不可用"),
     ACCOUNT_USERNAME_EXISTED(2004,"账号已存在"),
     PASSWORD_DECRYPT_ERROR(2099,"密码解密错误"),
+
     NO_PERMISSION(2100,"没有访问或操作权限"),
+
+
 
     USER_NOT_EXIST(3000,"用户信息不存在"),
     CURRENT_PASSWORD_ERROR(3001,"当前密码错误");

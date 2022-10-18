@@ -9,15 +9,18 @@ import com.space.db.dto.BlogDto;
 import com.space.db.entity.Blog;
 import com.space.db.entity.BlogContent;
 import com.space.db.mapper.BlogMapper;
+import com.space.domain.constant.RedisOption;
 import com.space.domain.model.PageResult;
 import com.space.domain.service.BlogContentService;
 import com.space.domain.service.BlogService;
+import com.space.domain.util.CacheUtils;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 @Service
 @Slf4j
@@ -28,6 +31,9 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper,Blog> implements Blo
 
     @Resource
     private BlogMapper blogMapper;
+
+    @Resource
+    private CacheUtils cacheUtil;
 
     @Override
     public PageResult<Blog> list(Integer page) {
@@ -48,7 +54,8 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper,Blog> implements Blo
 
     @Override
     public BlogDto getDetail(@NonNull Long id) {
-        return blogMapper.getDetailById(id);
+        return cacheUtil.queryWithLogicalExpire(RedisOption.BLOG.getKey(), id, BlogDto.class, blogMapper::getDetailById, RedisOption.BLOG.getTimeout(), TimeUnit.SECONDS);
+//        return blogMapper.getDetailById(id);
     }
 
     @Override

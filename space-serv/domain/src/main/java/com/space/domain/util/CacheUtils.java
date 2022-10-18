@@ -2,7 +2,10 @@ package com.space.domain.util;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.ObjectUtil;
+import cn.hutool.core.util.StrUtil;
 import com.space.domain.constant.Constant;
+import com.space.domain.constant.ErrorCode;
+import com.space.domain.exception.ServiceException;
 import com.space.domain.model.RedisData;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -47,7 +50,7 @@ public class CacheUtils {
      * @param keyPrefix key前缀
      * @param id id
      * @param type 类型
-     * @param dbFallback 数据库查询方法
+     * @param dbFallback 数据库查询逻辑
      * @param time 过期时间
      * @param unit 时间单位
      * @param <R> class类型
@@ -58,19 +61,23 @@ public class CacheUtils {
             String keyPrefix, ID id, Class<R> type, Function<ID, R> dbFallback, Long time, TimeUnit unit
     ){
         String key = keyPrefix + id;
-        Object o = redisUtil.get(key);
+        Object value = redisUtil.get(key);
         // 若缓存存在,直接返回
-        if (ObjectUtil.isNotEmpty(o)){
-            return BeanUtil.toBean(o,type);
+        if (ObjectUtil.isNotEmpty(value)){
+            return BeanUtil.toBean(value,type);
         }
-        R r = dbFallback.apply(id);
+        // 若存储的值为空,抛出异常
+        if (ObjectUtil.isNotNull(value)){
+            throw new ServiceException(ErrorCode.DATABASE_NULL_DATA);
+        }
+        R result = dbFallback.apply(id);
         // 若数据库无数据,缓存空值
-        if (ObjectUtil.isEmpty(r)){
+        if (ObjectUtil.isEmpty(result)){
             redisUtil.set(key,"", Constant.CACHE_NULL_TTL);
-            return null;
+            throw new ServiceException(ErrorCode.DATABASE_NULL_DATA);
         }
-        redisUtil.set(key, r, time, unit);
-        return r;
+        redisUtil.set(key, result, time, unit);
+        return result;
     }
 
     /**
@@ -78,7 +85,7 @@ public class CacheUtils {
      * @param keyPrefix key前缀
      * @param id id
      * @param type 类型
-     * @param dbFallback 数据库查询
+     * @param dbFallback 数据库查询逻辑
      * @param time 过期时间
      * @param unit 时间单位
      * @param <R> class类型
@@ -89,33 +96,37 @@ public class CacheUtils {
             String keyPrefix, ID id, Class<R> type, Function<ID, R> dbFallback, Long time, TimeUnit unit
     ){
         String key = keyPrefix + id;
-        Object o = redisUtil.get(key);
-        if (ObjectUtil.isNotEmpty(o)){
-            return BeanUtil.toBean(o, type);
+        Object value = redisUtil.get(key);
+        if (ObjectUtil.isNotEmpty(value)){
+            return BeanUtil.toBean(value, type);
         }
-        if (o != null){
-            return null;
+        if (ObjectUtil.isNotNull(value)){
+            throw new ServiceException(ErrorCode.DATABASE_NULL_DATA);
         }
         String lockKey = "lock:" + keyPrefix + id;
-        R r = null;
+        R result = null;
         try {
             boolean isLock = tryLock(lockKey);
             if (!isLock){
                 Thread.sleep(50);
                 return queryWithMutex(keyPrefix, id, type, dbFallback, time, unit);
             }
-            r = dbFallback.apply(id);
-            if (ObjectUtil.isEmpty(r)){
-                redisUtil.set(key,"", Constant.CACHE_NULL_TTL);
-                return null;
+            Object newValue = redisUtil.get(key);
+            if (ObjectUtil.isNotEmpty(newValue)){
+                return BeanUtil.toBean(value, type);
             }
-            redisUtil.set(key, r, time, unit);
+            result = dbFallback.apply(id);
+            if (ObjectUtil.isEmpty(result)){
+                redisUtil.set(key,"", Constant.CACHE_NULL_TTL);
+                throw new ServiceException(ErrorCode.DATABASE_NULL_DATA);
+            }
+            redisUtil.set(key, result, time, unit);
         } catch (InterruptedException e) {
             e.printStackTrace();
         } finally {
             unlock(lockKey);
         }
-        return r;
+        return result;
     }
 
     /**
@@ -123,7 +134,7 @@ public class CacheUtils {
      * @param keyPrefix key前缀
      * @param id id
      * @param type 类型
-     * @param dbFallback 数据库查询
+     * @param dbFallback 数据库查询逻辑
      * @param time 过期时间
      * @param unit 时间单位
      * @param <R> class类型
@@ -134,15 +145,23 @@ public class CacheUtils {
             String keyPrefix, ID id, Class<R> type, Function<ID, R> dbFallback, Long time, TimeUnit unit
     ){
         String key = keyPrefix + id;
-        Object o = redisUtil.get(key);
-        if (ObjectUtil.isEmpty(o)){
-            return null;
+        Object value = redisUtil.get(key);
+        if (ObjectUtil.isEmpty(value)){
+            R newR = dbFallback.apply(id);
+            this.setWithLogicalExpire(key,newR,time,unit);
+            if (ObjectUtil.isEmpty(newR)){
+                throw new ServiceException(ErrorCode.DATABASE_NULL_DATA);
+            }
+            return newR;
         }
-        RedisData redisData = BeanUtil.toBean(o, RedisData.class);
-        R r = BeanUtil.toBean(redisData.getData(), type);
+        RedisData redisData = BeanUtil.toBean(value, RedisData.class);
+        R result = BeanUtil.toBean(redisData.getData(), type);
+        if (ObjectUtil.isEmpty(result)){
+            throw new ServiceException(ErrorCode.DATABASE_NULL_DATA);
+        }
         LocalDateTime expireTime = redisData.getExpireTime();
         if (expireTime.isAfter(LocalDateTime.now())){
-            return r;
+            return result;
         }
         String lockKey = "lock:" + keyPrefix + id;
         boolean isLock = tryLock(lockKey);
@@ -158,7 +177,7 @@ public class CacheUtils {
                 }
             });
         }
-        return r;
+        return result;
     }
 
     private boolean tryLock(String key){
