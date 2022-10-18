@@ -1,5 +1,6 @@
 package com.space.domain.util;
 
+import cn.hutool.core.util.BooleanUtil;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 
@@ -27,7 +28,7 @@ public class RedisUtil {
      */
     public boolean setExpire(String key,long time){
         if (time > 0) {
-            return Boolean.TRUE.equals(redisTemplate.expire(key,time, TimeUnit.SECONDS));
+            return BooleanUtil.isTrue(redisTemplate.expire(key,time, TimeUnit.SECONDS));
         }
         return false;
     }
@@ -45,7 +46,7 @@ public class RedisUtil {
      * 判断key是否存在
      */
     public boolean hasKey(String key){
-        return Boolean.TRUE.equals(redisTemplate.hasKey(key));
+        return BooleanUtil.isTrue(redisTemplate.hasKey(key));
     }
 
     /**
@@ -94,6 +95,38 @@ public class RedisUtil {
             set(key, value);
         }
         redisTemplate.opsForValue().set(key, value, time, TimeUnit.SECONDS);
+    }
+
+    /**
+     * 设置String类型key的对象，附带过期时间和时间单位
+     * 若timeout<=0，则不限制
+     */
+    public void set(String key, Object value, long time, TimeUnit unit) {
+        if (time <= 0){
+            set(key, value);
+        }
+        redisTemplate.opsForValue().set(key, value, time, unit);
+    }
+
+    /**
+     * 若key不存在，设置String类型key的对象，附带过期时间和时间单位
+     * 若timeout<=0，则不限制
+     */
+    public boolean setIf(String key, Object value) {
+        Boolean flag = redisTemplate.opsForValue().setIfAbsent(key, value);
+        return BooleanUtil.isTrue(flag);
+    }
+
+    /**
+     * 若key不存在，设置String类型key的对象，附带过期时间和时间单位
+     * 若timeout<=0，则不限制
+     */
+    public boolean setIf(String key, Object value, long time, TimeUnit unit) {
+        if (time <= 0){
+            return setIf(key, value);
+        }
+        Boolean flag = redisTemplate.opsForValue().setIfAbsent(key, value, time, unit);
+        return BooleanUtil.isTrue(flag);
     }
 
     /**
