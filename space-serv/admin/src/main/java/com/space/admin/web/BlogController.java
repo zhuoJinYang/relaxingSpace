@@ -48,9 +48,9 @@ public class BlogController {
     /**
      * 获取博客详情信息
      */
-    @GetMapping("/detail")
+    @GetMapping("/detail/{id}")
     public Object detail(
-            @RequestParam("id") Long id
+            @PathVariable("id") Long id
     ){
         return VoConverter.INSTANCE.convert(blogService.getDetail(id));
     }

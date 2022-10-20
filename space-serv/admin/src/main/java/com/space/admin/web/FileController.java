@@ -133,4 +133,14 @@ public class FileController {
 
         return VoConverter.INSTANCE.convert(storage);
     }
+
+    // TODO 2022/10/19 实现输入文件id删除文件
+    @GetMapping("/delete")
+    public void delete(@RequestParam Long key){
+        File file = new File("");
+        if (file.isDirectory()) {
+            throw new ServiceException(ErrorCode.FILE_NOT_EXIT);
+        }
+        FileUtil.del(file);
+    }
 }

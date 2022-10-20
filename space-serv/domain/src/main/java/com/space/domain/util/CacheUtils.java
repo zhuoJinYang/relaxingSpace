@@ -2,11 +2,10 @@ package com.space.domain.util;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.ObjectUtil;
-import cn.hutool.core.util.StrUtil;
 import com.space.domain.constant.Constant;
 import com.space.domain.constant.ErrorCode;
 import com.space.domain.exception.ServiceException;
-import com.space.domain.model.RedisData;
+import com.space.domain.model.RedisLogicalData;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -40,9 +39,9 @@ public class CacheUtils {
      * @param unit 逻辑过期时间单位
      */
     public void setWithLogicalExpire(String key, Object value, Long time, TimeUnit unit){
-        RedisData redisData = new RedisData().setData(value)
+        RedisLogicalData redisLogicalData = new RedisLogicalData().setData(value)
                 .setExpireTime(LocalDateTime.now().plusSeconds(unit.toSeconds(time)));
-        redisUtil.set(key,redisData);
+        redisUtil.set(key, redisLogicalData);
     }
 
     /**
@@ -154,12 +153,12 @@ public class CacheUtils {
             }
             return newR;
         }
-        RedisData redisData = BeanUtil.toBean(value, RedisData.class);
-        R result = BeanUtil.toBean(redisData.getData(), type);
+        RedisLogicalData redisLogicalData = BeanUtil.toBean(value, RedisLogicalData.class);
+        R result = BeanUtil.toBean(redisLogicalData.getData(), type);
         if (ObjectUtil.isEmpty(result)){
             throw new ServiceException(ErrorCode.DATABASE_NULL_DATA);
         }
-        LocalDateTime expireTime = redisData.getExpireTime();
+        LocalDateTime expireTime = redisLogicalData.getExpireTime();
         if (expireTime.isAfter(LocalDateTime.now())){
             return result;
         }

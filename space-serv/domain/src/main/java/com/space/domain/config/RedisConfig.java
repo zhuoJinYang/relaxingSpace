@@ -1,6 +1,9 @@
 package com.space.domain.config;
 
 import com.space.domain.util.JacksonUtil;
+import org.redisson.Redisson;
+import org.redisson.api.RedissonClient;
+import org.redisson.config.Config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
@@ -37,5 +40,14 @@ public class RedisConfig {
         template.afterPropertiesSet();
 
         return template;
+    }
+
+    // 配置Redisson客户端
+    @Bean
+    public RedissonClient redissonClient(){
+        // 配置类
+        Config config = new Config();
+        config.useSingleServer().setAddress("redis://192.168.138.128:6379").setPassword("666666");
+        return Redisson.create(config);
     }
 }

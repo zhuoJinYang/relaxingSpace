@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @Accessors(chain = true)
-public class RedisData {
+public class RedisLogicalData {
     private LocalDateTime expireTime;
     private Object data;
 }
