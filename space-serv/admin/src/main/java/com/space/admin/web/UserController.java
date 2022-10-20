@@ -15,12 +15,12 @@ public class UserController {
     @Resource
     private UserService userService;
 
-    @GetMapping("/list")
+    @GetMapping()
     public Object list(){
         return userService.list();
     }
 
-    @PostMapping("/save")
+    @PostMapping()
     public void save(@RequestBody User userInfo){
         userService.save(userInfo);
     }

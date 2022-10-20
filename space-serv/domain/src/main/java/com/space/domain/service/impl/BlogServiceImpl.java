@@ -48,14 +48,13 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper,Blog> implements Blo
             blogContentService.save(new BlogContent().setBlogId(blog.getId()).setContent(content));
         }else {
             updateById(blog);
-            blogContentService.update(new UpdateWrapper<BlogContent>().eq("blog_id",blog.getId()).set("content",content));
+            blogContentService.update().setSql("content = " + content).eq("blog_id",blog.getId()).update();
         }
     }
 
     @Override
     public BlogDto getDetail(@NonNull Long id) {
         return cacheUtil.queryWithLogicalExpire(RedisOption.BLOG.getKey(), id, BlogDto.class, blogMapper::getDetailById, RedisOption.BLOG.getTimeout(), TimeUnit.SECONDS);
-//        return blogMapper.getDetailById(id);
     }
 
     @Override

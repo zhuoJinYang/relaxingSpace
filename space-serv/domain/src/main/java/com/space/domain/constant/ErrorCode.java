@@ -37,6 +37,7 @@ public enum ErrorCode {
     PASSWORD_NULL(2002,"密码不能为空"),
     ACCOUNT_UNAVAILABLE(2003,"账号不可用"),
     ACCOUNT_USERNAME_EXISTED(2004,"账号已存在"),
+    ACCOUNT_PASSWORD_UPDATE_ERROR(2005,"密码重置失败"),
     PASSWORD_DECRYPT_ERROR(2099,"密码解密错误"),
 
     NO_PERMISSION(2100,"没有访问或操作权限"),

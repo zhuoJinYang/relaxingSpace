@@ -17,9 +17,8 @@ public interface VoConverter {
     VoConverter INSTANCE = Mappers.getMapper(VoConverter.class);
 
     BlogVo convert(Blog record);
-    @Mapping(target = "content", source = "content")
-    @Mapping(target = "label", source = "label")
     BlogVo convert(BlogDto record);
+    AccountVo convert(Account record);
     FileStorageVo convert(FileStorage record);
 
     List<BlogVo> convertBlogArticleList(List<Blog> recordList);

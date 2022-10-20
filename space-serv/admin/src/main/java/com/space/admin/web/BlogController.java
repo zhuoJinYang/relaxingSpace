@@ -28,7 +28,7 @@ public class BlogController {
     /**
      * 获取博客列表
      */
-    @GetMapping("/list")
+    @GetMapping()
     public Object list(
             @RequestParam(required = false,defaultValue = "1") Integer page
     ){
@@ -48,7 +48,7 @@ public class BlogController {
     /**
      * 获取博客详情信息
      */
-    @GetMapping("/detail/{id}")
+    @GetMapping("/{id}")
     public Object detail(
             @PathVariable("id") Long id
     ){
@@ -58,7 +58,7 @@ public class BlogController {
     /**
      * 保存博客信息
      */
-    @PostMapping("/save")
+    @PostMapping()
     public void add(@RequestBody BlogVo blogVo){
         Blog blog = EntityConverter.INSTANCE.convert(blogVo);
         blogService.save(blog,blogVo.getContent());

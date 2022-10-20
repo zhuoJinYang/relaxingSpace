@@ -63,7 +63,10 @@ public class AccountServiceImpl extends ServiceImpl<AccountMapper, Account> impl
         if (!StrUtil.equals(account.getPassword(),SecureUtil.sha256(password))){
             throw new ServiceException(ErrorCode.CURRENT_PASSWORD_ERROR);
         }
-        account.setPassword(SecureUtil.sha256(newPassword));
-        updateById(account);
+
+        boolean success = update().setSql("password = " + SecureUtil.sha256(newPassword)).eq("id", id).update();
+        if (!success) {
+            throw new ServiceException(ErrorCode.ACCOUNT_PASSWORD_UPDATE_ERROR);
+        }
     }
 }
