@@ -19,7 +19,6 @@ const errorHandler = (error:AxiosError): AxiosError | Promise<AxiosError> => {
  */
 axiosInstance.interceptors.request.use((config:AxiosRequestConfig): AxiosRequestConfig => {
     const store = useUserStore()
-    store.token
     if (store.token){
         config.headers = {
             ...config.headers,
@@ -41,7 +40,7 @@ axiosInstance.interceptors.response.use((response:AxiosResponse): AxiosResponse 
         switch (resultCode){
             case 2000:{
                 // 登录失效
-                router.push('/login')
+                router.push({path:'/login',query: { redirect : router.currentRoute.value.fullPath }})
                 return Promise.reject(response)
             }
             default:{
