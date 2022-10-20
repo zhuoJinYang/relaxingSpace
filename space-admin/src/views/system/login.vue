@@ -1,73 +1,67 @@
 <template>
   <div class="login-container">
-    <a-row>
-      <a-col :xs="6" :sm="6" :md="6" :lg="6" :xl="6"></a-col>
-      <a-col :xs="12" :sm="12" :md="12" :lg="12" :xl="12">
-        <div class="login-container-form">
-          <div class="container-form-navigation">
-            <a-button class="navigation-login" :class="{'changeLoginTypeBtn':loginType}" @click="changeLoginType" type="text">登录</a-button>
-            <a-button class="navigation-register" :class="{'changeLoginTypeBtn':!loginType}" @click="changeRegisterType" type="text">注册</a-button>
+    <div class="login-container-form">
+      <div class="container-form-navigation">
+        <a-button class="navigation-login" :class="{'changeLoginTypeBtn':loginType}" @click="changeLoginType" type="text">登录</a-button>
+        <a-button class="navigation-register" :class="{'changeLoginTypeBtn':!loginType}" @click="changeRegisterType" type="text">注册</a-button>
+      </div>
+      <div class="login-container-title">欢迎来到爷的兴趣空间-{{loginType?'登录':'注册'}}页面</div>
+      <div class="container-avatar" v-if="loginType">
+        <a-avatar :size="80" src="src/assets/login/avator.jpg">
+        </a-avatar>
+        <div class="container-avatar-name">爷就是天</div>
+      </div>
+      <a-form
+          ref="loginForm"
+          :model="formState"
+          :rules="loginRules"
+      >
+        <a-form-item
+            name="username"
+            :rules="[{ required: true, message: '请输入账号' }]"
+        >
+          <a-input v-model:value="formState.username"
+                   placeholder="请输入账号">
+            <template #prefix>
+              <UserOutlined class="site-form-item-icon" />
+            </template>
+          </a-input>
+        </a-form-item>
+
+        <a-form-item
+            name="password"
+            :rules="[{ required: true, message: '请输入密码' }]"
+        >
+          <a-input-password v-model:value="formState.password"
+                            placeholder="请输入密码">
+            <template #prefix>
+              <LockOutlined class="site-form-item-icon" />
+            </template>
+          </a-input-password>
+        </a-form-item>
+
+        <a-form-item
+            name="captcha"
+            v-if="loginType"
+            :rules="[{ required: true, message: '请输入验证码' }]"
+        >
+          <div style="display: flex;align-items: center">
+            <a-image
+                :src="getCaptcha('abc')"
+                :preview="false"
+            />
+            <a-input style="margin-left: 20px" v-model:value="formState.captcha"
+                     placeholder="请输入验证码">
+            </a-input>
           </div>
-          <div class="login-container-title">欢迎来到爷的兴趣空间-{{loginType?'登录':'注册'}}页面</div>
-          <div class="container-avatar" v-if="loginType">
-            <a-avatar :size="80" src="src/assets/login/avator.jpg">
-            </a-avatar>
-            <div class="container-avatar-name">爷就是天</div>
-          </div>
-          <a-form
-              ref="loginForm"
-              :model="formState"
-              :rules="loginRules"
-          >
-            <a-form-item
-                name="username"
-                :rules="[{ required: true, message: '请输入账号' }]"
-            >
-              <a-input v-model:value="formState.username"
-                       placeholder="请输入账号">
-                <template #prefix>
-                  <UserOutlined class="site-form-item-icon" />
-                </template>
-              </a-input>
-            </a-form-item>
+        </a-form-item>
 
-            <a-form-item
-                name="password"
-                :rules="[{ required: true, message: '请输入密码' }]"
-            >
-              <a-input-password v-model:value="formState.password"
-                                placeholder="请输入密码">
-                <template #prefix>
-                  <LockOutlined class="site-form-item-icon" />
-                </template>
-              </a-input-password>
-            </a-form-item>
-
-            <a-form-item
-                name="captcha"
-                v-if="loginType"
-                :rules="[{ required: true, message: '请输入验证码' }]"
-            >
-              <div style="display: flex;align-items: center">
-                <a-image
-                    :src="getCaptcha('abc')"
-                    :preview="false"
-                />
-                <a-input style="margin-left: 20px" v-model:value="formState.captcha"
-                         placeholder="请输入验证码">
-                </a-input>
-              </div>
-            </a-form-item>
-
-            <a-form-item>
-              <a-button v-if="loginType" type="primary" @click="handleUserLogin">登录</a-button>
-              <a-button v-else type="primary" @click="registerUser">注册</a-button>
-            </a-form-item>
-          </a-form>
-        </div>
-      </a-col>
-      <a-col :xs="6" :sm="6" :md="6" :lg="6" :xl="6"></a-col>
-    </a-row>
+        <a-form-item>
+          <a-button v-if="loginType" type="primary" @click="handleUserLogin">登录</a-button>
+          <a-button v-else type="primary" @click="registerUser">注册</a-button>
+        </a-form-item>
+      </a-form>
+    </div>
     <div class="login-container-tips"></div>
   </div>
 </template>
@@ -189,14 +183,15 @@ export default defineComponent({
 .login-container{
   width: 100%;
   height: 100vh;
+  align-items: center;
+  display: flex;
+  justify-content: center;
   background: url("/src/assets/login/login_bg.jpg");
   background-size: 100% 100%;
   .login-container-form {
-    width: calc(100% - 40px);
-    margin-top: calc((100vh - 380px) / 2);
-    margin-left: 20px;
-    margin-right: 20px;
-    padding: 4vh;
+    padding: 2rem;
+    width: 26.5rem;
+    max-width: 100%;
     border-radius: 5px;
     box-shadow: 0 2px 5px 2px rgba(168, 144, 184, 0.5);
   }
