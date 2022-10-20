@@ -48,7 +48,8 @@ public class MybatisPlusCodeGenerator {
             "sys_file_storage",
             "sys_schedule",
             "sys_session",
-            "sys_user"
+            "sys_user",
+            "sys_user_follow"
     );
 
     private static final DataSourceConfig.Builder DATA_SOURCE_CONFIG = new DataSourceConfig.Builder(URL,USER_NAME,PASSWORD);

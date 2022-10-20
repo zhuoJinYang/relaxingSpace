@@ -60,6 +60,11 @@ public class Account implements Serializable {
     private String status;
 
     /**
+     * 类型：1.普通用户 2.VIP用户 3.至尊用户 4.管理员
+     */
+    private String roleType;
+
+    /**
      * 删除标识
      */
     @TableField(fill = FieldFill.INSERT)

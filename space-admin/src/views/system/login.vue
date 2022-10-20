@@ -1,67 +1,69 @@
 <template>
   <div class="login-container">
-    <div class="login-container-form">
-      <div class="container-form-navigation">
-        <a-button class="navigation-login" :class="{'changeLoginTypeBtn':loginType}" @click="changeLoginType" type="text">登录</a-button>
-        <a-button class="navigation-register" :class="{'changeLoginTypeBtn':!loginType}" @click="changeRegisterType" type="text">注册</a-button>
-      </div>
-      <div class="login-container-title">欢迎来到爷的兴趣空间-{{loginType?'登录':'注册'}}页面</div>
-      <div class="container-avatar" v-if="loginType">
-        <a-avatar :size="80" src="src/assets/login/avator.jpg">
-        </a-avatar>
-        <div class="container-avatar-name">爷就是天</div>
-      </div>
-      <a-form
-          ref="loginForm"
-          :model="formState"
-          :rules="loginRules"
-      >
-        <a-form-item
-            name="username"
-            :rules="[{ required: true, message: '请输入账号' }]"
+    <a-spin :spinning="loginLoad" size="large" tip="Loading...">
+      <div class="login-container-form">
+        <div class="container-form-navigation">
+          <a-button class="navigation-login" :class="{'changeLoginTypeBtn':loginType}" @click="changeLoginType" type="text">登录</a-button>
+          <a-button class="navigation-register" :class="{'changeLoginTypeBtn':!loginType}" @click="changeRegisterType" type="text">注册</a-button>
+        </div>
+        <div class="login-container-title">欢迎来到爷的兴趣空间-{{loginType?'登录':'注册'}}页面</div>
+        <div class="container-avatar" v-if="loginType">
+          <a-avatar :size="80" src="src/assets/login/avator.jpg">
+          </a-avatar>
+          <div class="container-avatar-name">爷就是天</div>
+        </div>
+        <a-form
+            ref="loginForm"
+            :model="formState"
+            :rules="loginRules"
         >
-          <a-input v-model:value="formState.username"
-                   placeholder="请输入账号">
-            <template #prefix>
-              <UserOutlined class="site-form-item-icon" />
-            </template>
-          </a-input>
-        </a-form-item>
-
-        <a-form-item
-            name="password"
-            :rules="[{ required: true, message: '请输入密码' }]"
-        >
-          <a-input-password v-model:value="formState.password"
-                            placeholder="请输入密码">
-            <template #prefix>
-              <LockOutlined class="site-form-item-icon" />
-            </template>
-          </a-input-password>
-        </a-form-item>
-
-        <a-form-item
-            name="captcha"
-            v-if="loginType"
-            :rules="[{ required: true, message: '请输入验证码' }]"
-        >
-          <div style="display: flex;align-items: center">
-            <a-image
-                :src="getCaptcha('abc')"
-                :preview="false"
-            />
-            <a-input style="margin-left: 20px" v-model:value="formState.captcha"
-                     placeholder="请输入验证码">
+          <a-form-item
+              name="username"
+              :rules="[{ required: true, message: '请输入账号' }]"
+          >
+            <a-input v-model:value="formState.username"
+                     placeholder="请输入账号">
+              <template #prefix>
+                <UserOutlined class="site-form-item-icon" />
+              </template>
             </a-input>
-          </div>
-        </a-form-item>
+          </a-form-item>
 
-        <a-form-item>
-          <a-button v-if="loginType" type="primary" @click="handleUserLogin">登录</a-button>
-          <a-button v-else type="primary" @click="registerUser">注册</a-button>
-        </a-form-item>
-      </a-form>
-    </div>
+          <a-form-item
+              name="password"
+              :rules="[{ required: true, message: '请输入密码' }]"
+          >
+            <a-input-password v-model:value="formState.password"
+                              placeholder="请输入密码">
+              <template #prefix>
+                <LockOutlined class="site-form-item-icon" />
+              </template>
+            </a-input-password>
+          </a-form-item>
+
+          <a-form-item
+              name="captcha"
+              v-if="loginType"
+              :rules="[{ required: true, message: '请输入验证码' }]"
+          >
+            <div style="display: flex;align-items: center">
+              <a-image
+                  :src="getCaptcha('abc')"
+                  :preview="false"
+              />
+              <a-input style="margin-left: 20px" v-model:value="formState.captcha"
+                       placeholder="请输入验证码">
+              </a-input>
+            </div>
+          </a-form-item>
+
+          <a-form-item>
+            <a-button v-if="loginType" type="primary" @click="handleUserLogin">登录</a-button>
+            <a-button v-else type="primary" @click="registerUser">注册</a-button>
+          </a-form-item>
+        </a-form>
+      </div>
+    </a-spin>
     <div class="login-container-tips"></div>
   </div>
 </template>
@@ -93,6 +95,8 @@ export default defineComponent({
     });
 
     const loginForm = ref()
+
+    let loginLoad = ref<boolean>(false)
 
     // 登录表单校验规则
     const loginRules = reactive({
@@ -128,6 +132,7 @@ export default defineComponent({
     };
 
     const handleUserLogin = () => {
+      loginLoad.value = true
       loginForm.value.validate().then(() => {
         store.login({...formState}).then(() => {
           const route = router.currentRoute.value
@@ -136,6 +141,7 @@ export default defineComponent({
             url = '/module'
           }
           message.success('登录成功！')
+          loginLoad.value = false
           router.replace(url)
         }).catch(err => {
           console.log('登录错误', err)
@@ -163,6 +169,7 @@ export default defineComponent({
     }
 
     return {
+      loginLoad,
       loginForm,
       loginType,
       formState,
@@ -190,7 +197,7 @@ export default defineComponent({
   background-size: 100% 100%;
   .login-container-form {
     padding: 2rem;
-    width: 26.5rem;
+    width: 30rem;
     max-width: 100%;
     border-radius: 5px;
     box-shadow: 0 2px 5px 2px rgba(168, 144, 184, 0.5);

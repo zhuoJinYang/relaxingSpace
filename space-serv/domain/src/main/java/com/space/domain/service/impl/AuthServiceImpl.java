@@ -57,9 +57,9 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public void logout(@NonNull String token) {
-//        String key = RedisOption.TOKEN.getKey(token);
-//        if (redisUtil.hasKey(key)){
-//            redisUtil.delete(key);
-//        }
+        String key = RedisOption.TOKEN.getKey(token);
+        if (redisUtil.hasKey(key)){
+            redisUtil.delete(key);
+        }
     }
 }

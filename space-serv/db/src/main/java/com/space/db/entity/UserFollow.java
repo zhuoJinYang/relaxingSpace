@@ -1,6 +1,8 @@
 package com.space.db.entity;
 
+import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
@@ -15,56 +17,37 @@ import lombok.experimental.Accessors;
  * </p>
  *
  * @author zjy
- * @since 2022-09-30
+ * @since 2022-10-20
  */
 @Getter
 @Setter
 @Accessors(chain = true)
-@TableName("sys_session")
-public class Session implements Serializable {
+@TableName("sys_user_follow")
+public class UserFollow implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     /**
-     * 访问id
+     * id
      */
     @TableId(value = "id", type = IdType.ASSIGN_ID)
     private Long id;
 
     /**
-     * 访问用户id
+     * 用户id
      */
-    private Long loginUserId;
+    private Long userId;
 
     /**
-     * 访问用户名
+     * 关联用户id
      */
-    private String loginUserName;
+    private Long followUserId;
 
     /**
-     * 访问者权限
+     * 数据添加时间
      */
-    private String roleType;
-
-    /**
-     * 访问时间
-     */
-    private LocalDateTime loginTime;
-
-    /**
-     * token
-     */
-    private String token;
-
-    /**
-     * 访问ip
-     */
-    private String ip;
-
-    /**
-     * 访问代理
-     */
-    private String agent;
+    @TableField(fill = FieldFill.INSERT)
+    private LocalDateTime addTime;
 
 
 }

@@ -50,7 +50,7 @@ public class CheckTokenAspect {
 
         Session session = this.verify(token);
         // 查找session中的用户类型
-//        RoleType loginUserRoleType = RoleType.of(session.getLoginUserRoleType());
+        RoleType loginUserRoleType = RoleType.of(session.getRoleType());
 
         // 接口可能会限制访问角色，检查访问权限
         MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
@@ -58,12 +58,12 @@ public class CheckTokenAspect {
         CheckToken anno = this.getAnnotation(method);
         RoleType[] permissionRoles = anno.permissionRoles();
         // 如果指定了接口访问权限的角色类型，则需判断当前角色是否有权限
-//        if (ArrayUtil.isNotEmpty(permissionRoles) && !ArrayUtil.contains(permissionRoles,loginUserRoleType)){
-//            throw new ServiceException(ErrorCode.NO_PERMISSION);
-//        }
+        if (ArrayUtil.isNotEmpty(permissionRoles) && !ArrayUtil.contains(permissionRoles,loginUserRoleType)){
+            throw new ServiceException(ErrorCode.NO_PERMISSION);
+        }
 
         CurrentRequestHolder.setLoginUserId(session.getLoginUserId());
-//        CurrentRequestHolder.setLoginUserRoleType(loginUserRoleType);
+        CurrentRequestHolder.setLoginUserRoleType(loginUserRoleType);
     }
 
     @AfterReturning("pointcutType() || pointcutMethod()")
@@ -121,7 +121,7 @@ public class CheckTokenAspect {
      */
     private void refresh(Session session){
         redisUtil.setExpire(RedisOption.TOKEN.getKey(session.getToken()),RedisOption.TOKEN.getTimeout());
-//        redisUtil.setExpire(RedisOption.ACCOUNT_TOKEN.getKey(session.getUserUsername() + ":" + session.getToken()),
-//                RedisOption.ACCOUNT_TOKEN.getTimeout());
+        redisUtil.setExpire(RedisOption.ACCOUNT_TOKEN.getKey(session.getLoginUserName() + ":" + session.getToken()),
+                RedisOption.ACCOUNT_TOKEN.getTimeout());
     }
 }

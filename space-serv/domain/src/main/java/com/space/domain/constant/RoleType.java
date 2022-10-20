@@ -10,7 +10,11 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum RoleType {
-    SYSTEM_ADMIN("1","系统管理员");
+    ORDINARY_USER("1","普通用户"),
+    VIP_USER("2","vip用户"),
+    SUPER_USER("3","至尊用户"),
+    SYSTEM_USER("4","管理员")
+    ;
 
     private final String value;
     private final String name;
