@@ -1,6 +1,7 @@
 import axios, {AxiosError, AxiosRequestConfig, AxiosResponse} from 'axios';
 import router from "@/router";
 import {message} from "ant-design-vue";
+import {useUserStore} from "@/store/user";
 
 const axiosInstance = axios.create({
     timeout: 60000,
@@ -17,6 +18,14 @@ const errorHandler = (error:AxiosError): AxiosError | Promise<AxiosError> => {
  * 请求发生前拦截
  */
 axiosInstance.interceptors.request.use((config:AxiosRequestConfig): AxiosRequestConfig => {
+    const store = useUserStore()
+    store.token
+    if (store.token){
+        config.headers = {
+            ...config.headers,
+            Authorization: store.token,
+        }
+    }
     return config
 },errorHandler)
 
