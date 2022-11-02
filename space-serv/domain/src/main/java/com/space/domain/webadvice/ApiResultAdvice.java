@@ -19,7 +19,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
  * 其实也就是采用了AOP的思想，对返回值进行一次修改。
  */
 @Slf4j
-@RestControllerAdvice
+@RestControllerAdvice(basePackages = "com.space.admin.web")
 public class ApiResultAdvice implements ResponseBodyAdvice<Object> {
 
     @Override

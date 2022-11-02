@@ -9,6 +9,10 @@ spring:
         max-idle: 8
         min-idle: 0
         max-wait: 100ms
+  # 修改路径匹配策略,解决与swagger路径匹配策略的冲突
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
 
 custom:
   security:

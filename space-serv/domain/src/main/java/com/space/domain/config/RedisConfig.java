@@ -43,11 +43,11 @@ public class RedisConfig {
     }
 
     // 配置Redisson客户端
-    @Bean
-    public RedissonClient redissonClient(){
-        // 配置类
-        Config config = new Config();
-        config.useSingleServer().setAddress("redis://192.168.138.128:6379").setPassword("666666");
-        return Redisson.create(config);
-    }
+//    @Bean
+//    public RedissonClient redissonClient(){
+//        // 配置类
+//        Config config = new Config();
+//        config.useSingleServer().setAddress("redis://192.168.138.128:6379").setPassword("666666");
+//        return Redisson.create(config);
+//    }
 }

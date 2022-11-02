@@ -37,6 +37,14 @@
     </properties>
 
     <dependencies>
+
+        <!-- swagger -->
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-boot-starter</artifactId>
+            <version>3.0.0</version>
+        </dependency>
+
         <!-- hutool 工具集 -->
         <dependency>
             <groupId>cn.hutool</groupId>
